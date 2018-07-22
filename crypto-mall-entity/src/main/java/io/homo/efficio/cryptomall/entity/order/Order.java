@@ -1,6 +1,5 @@
 package io.homo.efficio.cryptomall.entity.order;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +17,7 @@ public class Order {
     public Order(List<OrderItem> orderItems, ShippingInfo shippingInfo) {
         this.orderItems = orderItems;
         this.shippingInfo = shippingInfo;
+        this.status = Status.PAYMENT_WAITING;
     }
 
     public double calculateAmounts() {
@@ -36,7 +36,9 @@ public class Order {
     }
 
     public void cancel() {
-
+        if (isCancellable()) {
+            this.status = Status.CANCELED;
+        }
     }
 
     public void complete() {
@@ -51,8 +53,9 @@ public class Order {
         return false;
     }
 
-    public boolean isCancellable() {
-        return false;
+    private boolean isCancellable() {
+        return this.status == Status.PAYMENT_WAITING
+                || this.status == Status.PREPARING_SHIPMENT;
     }
 
     public List<OrderItem> getOrderItems() {
@@ -67,7 +70,11 @@ public class Order {
         return status;
     }
 
+    public void changeStatus(Status newStatus) {
+        this.status = newStatus;
+    }
+
     public enum Status {
-        PAYMENT_WAITING, PREPARING_SHIPMENT, DELIVERRING, DELIVERY_COMPLETED, CANCELED
+        PAYMENT_WAITING, PREPARING_SHIPMENT, SHIPPED, DELIVERING, DELIVERY_COMPLETED, CANCELED
     }
 }
