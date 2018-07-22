@@ -1,9 +1,12 @@
 package io.homo.efficio.cryptomall.entity.product;
 
+import lombok.Getter;
+
 /**
  * @author homo.efficio@gmail.com
  * Created on 2018-07-22.
  */
+@Getter
 public class Product {
 
     private Long id;
@@ -12,21 +15,17 @@ public class Product {
 
     private double price;
 
+    private Category category;
+
     public Product(Long id, String name, double price) {
+        this(id, name, price, null);
+    }
+
+    public Product(Long id, String name, double price, Category category) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.category = category;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
 }
