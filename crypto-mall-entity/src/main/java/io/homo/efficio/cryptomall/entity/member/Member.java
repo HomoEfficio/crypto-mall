@@ -110,11 +110,7 @@ public class Member {
     }
 
     public void changeStatus(Status newStatus) {
-        if (isChangeable()) {
-            this.status = newStatus;
-        } else {
-            throw new UnavailableMemberInfoChangeException();
-        }
+        this.status = newStatus;
     }
 
     private boolean isChangeable() {
