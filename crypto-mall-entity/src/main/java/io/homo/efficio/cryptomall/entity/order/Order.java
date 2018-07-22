@@ -1,5 +1,6 @@
 package io.homo.efficio.cryptomall.entity.order;
 
+import io.homo.efficio.cryptomall.entity.member.Member;
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableCancellationException;
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableOrderItemChangeException;
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableShippingInfoException;
@@ -15,13 +16,16 @@ import java.util.Objects;
 @Getter
 public class Order {
 
+    private Member orderer;
+
     private List<OrderItem> orderItems;
 
     private ShippingInfo shippingInfo;
 
     private Status status;
 
-    public Order(List<OrderItem> orderItems, ShippingInfo shippingInfo) {
+    public Order(Member orderer, List<OrderItem> orderItems, ShippingInfo shippingInfo) {
+        this.orderer = orderer;
         this.orderItems = orderItems;
         this.shippingInfo = shippingInfo;
         this.status = Status.PAYMENT_WAITING;
