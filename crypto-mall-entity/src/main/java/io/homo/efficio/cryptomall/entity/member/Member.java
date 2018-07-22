@@ -1,5 +1,6 @@
 package io.homo.efficio.cryptomall.entity.member;
 
+import io.homo.efficio.cryptomall.entity.member.exception.UnavailableMemberInfoChangeException;
 import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
 import lombok.Getter;
 
@@ -77,22 +78,48 @@ public class Member {
     }
 
     public void changeName(String newName) {
-        this.name = newName;
+        if (isChangeable()) {
+            this.name = newName;
+        } else {
+            throw new UnavailableMemberInfoChangeException();
+        }
     }
 
     public void changePhoneNumber(String newPhoneNumber) {
-        this.phoneNumber = newPhoneNumber;
+        if (isChangeable()) {
+            this.phoneNumber = newPhoneNumber;
+        } else {
+            throw new UnavailableMemberInfoChangeException();
+        }
     }
 
     public void changeShippingInfo(ShippingInfo newShippingInfo) {
-        this.shippingInfo = newShippingInfo;
+        if (isChangeable()) {
+            this.shippingInfo = newShippingInfo;
+        } else {
+            throw new UnavailableMemberInfoChangeException();
+        }
     }
 
     public void changeGrade(Grade newGrade) {
-        this.grade = newGrade;
+        if (isChangeable()) {
+            this.grade = newGrade;
+        } else {
+            throw new UnavailableMemberInfoChangeException();
+        }
     }
 
     public void changeStatus(Status newStatus) {
-        this.status = newStatus;
+        if (isChangeable()) {
+            this.status = newStatus;
+        } else {
+            throw new UnavailableMemberInfoChangeException();
+        }
     }
+
+    private boolean isChangeable() {
+        return this.status == Status.ACTIVE;
+    }
+
+
 }
