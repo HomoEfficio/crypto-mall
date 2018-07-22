@@ -13,6 +13,8 @@ public class Order {
 
     private ShippingInfo shippingInfo;
 
+    private Status status;
+
     public Order(List<OrderItem> orderItems, ShippingInfo shippingInfo) {
         this.orderItems = orderItems;
         this.shippingInfo = shippingInfo;
@@ -59,5 +61,13 @@ public class Order {
 
     public ShippingInfo getShippingInfo() {
         return shippingInfo;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public enum Status {
+        PAYMENT_WAITING, PREPARING_SHIPMENT, DELIVERRING, DELIVERY_COMPLETED, CANCELED
     }
 }

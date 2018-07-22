@@ -57,6 +57,12 @@ public class OrderTest {
 
         assertThat(this.order.getShippingInfo().getAddress()).isEqualTo("서울 광진구 영화사로 77길 11, 222-333");
         assertThat(this.order.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
+    }
 
+    @Test
+    public void 주문취소() {
+        this.order.cancel();
+
+        assertThat(this.order.getStatus()).isEqualTo(Order.Status.CANCELED);
     }
 }
