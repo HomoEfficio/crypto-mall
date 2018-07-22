@@ -6,6 +6,7 @@ import io.homo.efficio.cryptomall.entity.order.exception.UnavailableShippingInfo
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author homo.efficio@gmail.com
@@ -27,6 +28,7 @@ public class Order {
     }
 
     public double calculateAmounts() {
+        Objects.requireNonNull(this.orderItems);
         return this.orderItems.stream()
                 .map(OrderItem::getAmounts)
                 .reduce((a, b) -> a + b)

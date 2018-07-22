@@ -41,8 +41,16 @@ public class OrderTest {
 
     @Test
     public void 주문가격계산() {
-
         assertThat(this.order.calculateAmounts()).isEqualTo(510d);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void 주문가격계산_주문항목없는주문_throws_NullPointerException() {
+        Order order = new Order(null,
+                new ShippingInfo("탁재운", "010-3333-1111",
+                        "서울 강남구 한강동 가즈아파트 333-333",
+                        ShippingInfo.Method.QUICK_SERVICE));
+        assertThat(order.calculateAmounts()).isEqualTo(0d);
     }
 
     @Test
