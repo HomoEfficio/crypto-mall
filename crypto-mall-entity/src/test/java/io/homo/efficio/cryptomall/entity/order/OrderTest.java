@@ -1,6 +1,7 @@
 package io.homo.efficio.cryptomall.entity.order;
 
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableCancellationException;
+import io.homo.efficio.cryptomall.entity.order.exception.UnavailableShippingInfoException;
 import io.homo.efficio.cryptomall.entity.product.Product;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,6 +55,15 @@ public class OrderTest {
 
     @Test
     public void 배송정보변경() {
+        this.order.changeShippingInfo(new ShippingInfo("서울 광진구 영화사로 77길 11, 222-333", ShippingInfo.Method.QUICK_SERVICE));
+
+        assertThat(this.order.getShippingInfo().getAddress()).isEqualTo("서울 광진구 영화사로 77길 11, 222-333");
+        assertThat(this.order.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
+    }
+
+    @Test(expected = UnavailableShippingInfoException.class)
+    public void 배송정보변경_배송신청이후() {
+        this.order.changeStatus(Order.Status.SHIPPED);
         this.order.changeShippingInfo(new ShippingInfo("서울 광진구 영화사로 77길 11, 222-333", ShippingInfo.Method.QUICK_SERVICE));
 
         assertThat(this.order.getShippingInfo().getAddress()).isEqualTo("서울 광진구 영화사로 77길 11, 222-333");
