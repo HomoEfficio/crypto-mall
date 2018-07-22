@@ -140,7 +140,7 @@ public class MemberTest {
                 )
                 .build();
 
-        member.replaceMemberInfoBy(
+        member.changeShippingInfo(
                 new ShippingInfo(
                         "오하칠",
                         "010-5555-1111",
@@ -150,5 +150,86 @@ public class MemberTest {
         );
 
         assertThat(member.getShippingInfo().getAddress()).isEqualTo("인천 남구 만복동 888");
+    }
+
+    @Test(expected = UnavailableMemberInfoChangeException.class)
+    public void 배송정보이름이회원이름과_다른경우_배송정보로_회원정보변경시_예외() {
+        Member member = new Member
+                .Required(1L, "김삼랑", "010-2222-3333")
+                .status(Member.Status.INACTIVE)
+                .shippingInfo(
+                        new ShippingInfo(
+                                "오하칠",
+                                "010-5555-1111",
+                                "인천 남구 만복동 777",
+                                ShippingInfo.Method.TACKBAE
+                        )
+                )
+                .build();
+
+        member.replaceMemberInfoBy(
+                new ShippingInfo(
+                        "오하칠",
+                        "010-3333-3333",
+                        "인천 남구 만복동 888",
+                        ShippingInfo.Method.TACKBAE
+                )
+        );
+
+        assertThat(member.getPhoneNumber()).isEqualTo("010-3333-3333");
+    }
+
+    @Test
+    public void 배송정보이름이회원이름과_같을경우_배송정보로_회원정보변경() {
+        Member member = new Member
+                .Required(1L, "김삼랑", "010-2222-3333")
+                .status(Member.Status.ACTIVE)
+                .shippingInfo(
+                        new ShippingInfo(
+                                "김삼랑",
+                                "010-5555-1111",
+                                "인천 남구 만복동 777",
+                                ShippingInfo.Method.TACKBAE
+                        )
+                )
+                .build();
+
+        member.replaceMemberInfoBy(
+                new ShippingInfo(
+                        "김삼랑",
+                        "010-3333-3333",
+                        "인천 남구 만복동 888",
+                        ShippingInfo.Method.TACKBAE
+                )
+        );
+
+        assertThat(member.getPhoneNumber()).isEqualTo("010-3333-3333");
+    }
+
+    @Test(expected = UnavailableMemberInfoChangeException.class)
+    public void 배송정보이름이_비활성회원이름과_같을경우_배송정보로_회원정보변경시_예외() {
+        Member member = new Member
+                .Required(1L, "김삼랑", "010-2222-3333")
+                .status(Member.Status.INACTIVE)
+                .shippingInfo(
+                        new ShippingInfo(
+                                "김삼랑",
+                                "010-5555-1111",
+                                "인천 남구 만복동 777",
+                                ShippingInfo.Method.TACKBAE
+                        )
+                )
+                .build();
+
+        member.replaceMemberInfoBy(
+                new ShippingInfo(
+                        "김삼랑",
+                        "010-3333-3333",
+                        "인천 남구 만복동 888",
+                        ShippingInfo.Method.TACKBAE
+                )
+        );
+
+        assertThat(member.getPhoneNumber()).isEqualTo("010-3333-3333");
     }
 }

@@ -126,6 +126,6 @@ public class Member {
     }
 
     private boolean isReplaceableByShippingInfo(ShippingInfo shippingInfo) {
-        return this.name.equals(shippingInfo.getReceiverName());
+        return isChangeable() && this.name.equals(shippingInfo.getReceiverName());
     }
 }
