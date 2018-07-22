@@ -33,7 +33,8 @@ public class OrderTest {
                 new OrderItem(product03, 7)
         );
 
-        final ShippingInfo shippingInfo = new ShippingInfo("인천 서구 크리스탈로 888, 999-3333", ShippingInfo.Method.TACKBAE);
+        final ShippingInfo shippingInfo =
+                new ShippingInfo("지삭렬", "010-8888-9999","인천 서구 크리스탈로 888, 999-3333", ShippingInfo.Method.TACKBAE);
 
         this.order = new Order(orderItems, shippingInfo);
     }
@@ -67,18 +68,27 @@ public class OrderTest {
 
     @Test
     public void 배송정보변경_결제이전() {
-        this.order.changeShippingInfo(new ShippingInfo("서울 광진구 영화사로 77길 11, 222-333", ShippingInfo.Method.QUICK_SERVICE));
+        setNewShippingInfo();
 
+        assertThat(this.order.getShippingInfo().getReceiverName()).isEqualTo("지삭렬");
+        assertThat(this.order.getShippingInfo().getReceiverPhoneNumber()).isEqualTo("010-1111-2222");
         assertThat(this.order.getShippingInfo().getAddress()).isEqualTo("서울 광진구 영화사로 77길 11, 222-333");
         assertThat(this.order.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
+    }
+
+    private void setNewShippingInfo() {
+        this.order.changeShippingInfo(
+                new ShippingInfo("지삭렬", "010-1111-2222","서울 광진구 영화사로 77길 11, 222-333", ShippingInfo.Method.QUICK_SERVICE));
     }
 
     @Test
     public void 배송정보변경_상품준비중() {
         this.order.changeStatus(Order.Status.PREPARING_SHIPMENT);
 
-        this.order.changeShippingInfo(new ShippingInfo("서울 광진구 영화사로 77길 11, 222-333", ShippingInfo.Method.QUICK_SERVICE));
+        setNewShippingInfo();
 
+        assertThat(this.order.getShippingInfo().getReceiverName()).isEqualTo("지삭렬");
+        assertThat(this.order.getShippingInfo().getReceiverPhoneNumber()).isEqualTo("010-1111-2222");
         assertThat(this.order.getShippingInfo().getAddress()).isEqualTo("서울 광진구 영화사로 77길 11, 222-333");
         assertThat(this.order.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
     }
@@ -86,8 +96,11 @@ public class OrderTest {
     @Test(expected = UnavailableShippingInfoException.class)
     public void 배송정보변경_배송신청이후() {
         this.order.changeStatus(Order.Status.SHIPPED);
-        this.order.changeShippingInfo(new ShippingInfo("서울 광진구 영화사로 77길 11, 222-333", ShippingInfo.Method.QUICK_SERVICE));
 
+        setNewShippingInfo();
+
+        assertThat(this.order.getShippingInfo().getReceiverName()).isEqualTo("지삭렬");
+        assertThat(this.order.getShippingInfo().getReceiverPhoneNumber()).isEqualTo("010-1111-2222");
         assertThat(this.order.getShippingInfo().getAddress()).isEqualTo("서울 광진구 영화사로 77길 11, 222-333");
         assertThat(this.order.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
     }
@@ -95,8 +108,11 @@ public class OrderTest {
     @Test(expected = UnavailableShippingInfoException.class)
     public void 배송정보변경_배송중() {
         this.order.changeStatus(Order.Status.DELIVERING);
-        this.order.changeShippingInfo(new ShippingInfo("서울 광진구 영화사로 77길 11, 222-333", ShippingInfo.Method.QUICK_SERVICE));
 
+        setNewShippingInfo();
+
+        assertThat(this.order.getShippingInfo().getReceiverName()).isEqualTo("지삭렬");
+        assertThat(this.order.getShippingInfo().getReceiverPhoneNumber()).isEqualTo("010-1111-2222");
         assertThat(this.order.getShippingInfo().getAddress()).isEqualTo("서울 광진구 영화사로 77길 11, 222-333");
         assertThat(this.order.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
     }
@@ -104,8 +120,11 @@ public class OrderTest {
     @Test(expected = UnavailableShippingInfoException.class)
     public void 배송정보변경_배송완료() {
         this.order.changeStatus(Order.Status.DELIVERING);
-        this.order.changeShippingInfo(new ShippingInfo("서울 광진구 영화사로 77길 11, 222-333", ShippingInfo.Method.QUICK_SERVICE));
 
+        setNewShippingInfo();
+
+        assertThat(this.order.getShippingInfo().getReceiverName()).isEqualTo("지삭렬");
+        assertThat(this.order.getShippingInfo().getReceiverPhoneNumber()).isEqualTo("010-1111-2222");
         assertThat(this.order.getShippingInfo().getAddress()).isEqualTo("서울 광진구 영화사로 77길 11, 222-333");
         assertThat(this.order.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
     }
@@ -113,8 +132,11 @@ public class OrderTest {
     @Test(expected = UnavailableShippingInfoException.class)
     public void 배송정보변경_취소후() {
         this.order.changeStatus(Order.Status.CANCELED);
-        this.order.changeShippingInfo(new ShippingInfo("서울 광진구 영화사로 77길 11, 222-333", ShippingInfo.Method.QUICK_SERVICE));
 
+        setNewShippingInfo();
+
+        assertThat(this.order.getShippingInfo().getReceiverName()).isEqualTo("지삭렬");
+        assertThat(this.order.getShippingInfo().getReceiverPhoneNumber()).isEqualTo("010-1111-2222");
         assertThat(this.order.getShippingInfo().getAddress()).isEqualTo("서울 광진구 영화사로 77길 11, 222-333");
         assertThat(this.order.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
     }
