@@ -1,11 +1,13 @@
 package io.homo.efficio.cryptomall.entity.order;
 
 import io.homo.efficio.cryptomall.entity.product.Product;
+import lombok.Getter;
 
 /**
  * @author homo.efficio@gmail.com
  * Created on 2018-07-22.
  */
+@Getter
 public class OrderItem {
 
     private Product product;
@@ -18,17 +20,5 @@ public class OrderItem {
         this.product = product;
         this.quantity = quantity;
         this.amounts = this.product.getPrice() * this.quantity;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public double getAmounts() {
-        return amounts;
     }
 }

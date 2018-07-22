@@ -3,6 +3,7 @@ package io.homo.efficio.cryptomall.entity.order;
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableCancellationException;
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableOrderItemChangeException;
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableShippingInfoException;
+import lombok.Getter;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author homo.efficio@gmail.com
  * Created on 2018-07-22.
  */
+@Getter
 public class Order {
 
     private List<OrderItem> orderItems;
@@ -69,17 +71,17 @@ public class Order {
                 || this.status == Status.PREPARING_SHIPMENT;
     }
 
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public ShippingInfo getShippingInfo() {
-        return shippingInfo;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
+//    public List<OrderItem> getOrderItems() {
+//        return orderItems;
+//    }
+//
+//    public ShippingInfo getShippingInfo() {
+//        return shippingInfo;
+//    }
+//
+//    public Status getStatus() {
+//        return status;
+//    }
 
     public void changeStatus(Status newStatus) {
         this.status = newStatus;
