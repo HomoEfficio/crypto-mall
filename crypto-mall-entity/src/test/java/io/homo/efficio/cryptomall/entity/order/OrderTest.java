@@ -1,5 +1,6 @@
 package io.homo.efficio.cryptomall.entity.order;
 
+import io.homo.efficio.cryptomall.entity.member.Member;
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableCancellationException;
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableOrderItemChangeException;
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableShippingInfoException;
@@ -36,7 +37,11 @@ public class OrderTest {
         final ShippingInfo shippingInfo =
                 new ShippingInfo("지삭렬", "010-8888-9999","인천 서구 크리스탈로 888, 999-3333", ShippingInfo.Method.TACKBAE);
 
-        this.order = new Order(orderItems, shippingInfo);
+        Member orderer = new Member.Required(
+                1L, "아오린", "010-1111-3333"
+        ).build();
+
+        this.order = new Order(orderer, orderItems, shippingInfo);
     }
 
     @Test
@@ -46,7 +51,11 @@ public class OrderTest {
 
     @Test(expected = NullPointerException.class)
     public void 주문가격계산_주문항목없는주문_throws_NullPointerException() {
-        Order order = new Order(null,
+        Order order = new Order(
+                new Member.Required(
+                        1L, "아오린", "010-1111-3333"
+                ).build(),
+                null,
                 new ShippingInfo("탁재운", "010-3333-1111",
                         "서울 강남구 한강동 가즈아파트 333-333",
                         ShippingInfo.Method.QUICK_SERVICE));
@@ -127,7 +136,7 @@ public class OrderTest {
 
     @Test(expected = UnavailableShippingInfoException.class)
     public void 배송정보변경_배송완료() {
-        this.order.changeStatus(Order.Status.DELIVERING);
+        this.order.changeStatus(Order.Status.DELIVERY_COMPLETED);
 
         setNewShippingInfo();
 
