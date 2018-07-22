@@ -11,8 +11,11 @@ public class Order {
 
     private List<OrderItem> orderItems;
 
-    public Order(List<OrderItem> orderItems) {
+    private ShippingInfo shippingInfo;
+
+    public Order(List<OrderItem> orderItems, ShippingInfo shippingInfo) {
         this.orderItems = orderItems;
+        this.shippingInfo = shippingInfo;
     }
 
     public double calculateAmounts() {
@@ -26,7 +29,7 @@ public class Order {
         this.orderItems.set(i, newOrderItem);
     }
 
-    public void changeShippingInfo() {
+    public void changeShippingInfo(ShippingInfo shippingInfo) {
 
     }
 
@@ -48,5 +51,13 @@ public class Order {
 
     public boolean isCancellable() {
         return false;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public ShippingInfo getShippingInfo() {
+        return shippingInfo;
     }
 }
