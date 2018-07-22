@@ -22,8 +22,8 @@ public class Order {
                 .orElse(0.0d);
     }
 
-    public void changeOrderItem(int i, OrderItem orderItem) {
-
+    public void changeOrderItem(int i, OrderItem newOrderItem) {
+        this.orderItems.set(i, newOrderItem);
     }
 
     public void changeShippingInfo() {
