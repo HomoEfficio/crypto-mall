@@ -1,6 +1,7 @@
 package io.homo.efficio.cryptomall.entity.order;
 
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableCancellationException;
+import io.homo.efficio.cryptomall.entity.order.exception.UnavailableOrderItemChangeException;
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableShippingInfoException;
 
 import java.util.List;
@@ -31,7 +32,11 @@ public class Order {
     }
 
     public void changeOrderItem(int i, OrderItem newOrderItem) {
-        this.orderItems.set(i, newOrderItem);
+        if (isOrderItemChangeable()) {
+            this.orderItems.set(i, newOrderItem);
+        } else {
+            throw new UnavailableOrderItemChangeException();
+        }
     }
 
     public void changeShippingInfo(ShippingInfo newShippingInfo) {
@@ -54,11 +59,11 @@ public class Order {
 
     }
 
-    public boolean isOrderItemChangeable() {
-        return false;
+    private boolean isOrderItemChangeable() {
+        return this.status == Status.PAYMENT_WAITING;
     }
 
-    public boolean isShippingInfoChangeable() {
+    private boolean isShippingInfoChangeable() {
         return this.status == Status.PAYMENT_WAITING
                 || this.status == Status.PREPARING_SHIPMENT;
     }
