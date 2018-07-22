@@ -29,8 +29,8 @@ public class Order {
         this.orderItems.set(i, newOrderItem);
     }
 
-    public void changeShippingInfo(ShippingInfo shippingInfo) {
-
+    public void changeShippingInfo(ShippingInfo newShippingInfo) {
+        this.shippingInfo = newShippingInfo;
     }
 
     public void cancel() {
