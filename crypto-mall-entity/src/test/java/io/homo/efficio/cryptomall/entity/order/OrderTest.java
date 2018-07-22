@@ -74,4 +74,13 @@ public class OrderTest {
 
         assertThat(this.order.getStatus()).isEqualTo(Order.Status.CANCELED);
     }
+
+    @Test
+    public void 주문취소_배송신청완료() {
+        this.order.changeStatus(Order.Status.SHIPPED);
+
+        this.order.cancel();
+
+        assertThat(this.order.getStatus()).isEqualTo(Order.Status.CANCELED);
+    }
 }
