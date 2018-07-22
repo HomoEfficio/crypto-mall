@@ -54,7 +54,17 @@ public class OrderTest {
     }
 
     @Test
-    public void 배송정보변경() {
+    public void 배송정보변경_결제이전() {
+        this.order.changeShippingInfo(new ShippingInfo("서울 광진구 영화사로 77길 11, 222-333", ShippingInfo.Method.QUICK_SERVICE));
+
+        assertThat(this.order.getShippingInfo().getAddress()).isEqualTo("서울 광진구 영화사로 77길 11, 222-333");
+        assertThat(this.order.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
+    }
+
+    @Test
+    public void 배송정보변경_상품준비중() {
+        this.order.changeStatus(Order.Status.PREPARING_SHIPMENT);
+
         this.order.changeShippingInfo(new ShippingInfo("서울 광진구 영화사로 77길 11, 222-333", ShippingInfo.Method.QUICK_SERVICE));
 
         assertThat(this.order.getShippingInfo().getAddress()).isEqualTo("서울 광진구 영화사로 77길 11, 222-333");
@@ -64,6 +74,33 @@ public class OrderTest {
     @Test(expected = UnavailableShippingInfoException.class)
     public void 배송정보변경_배송신청이후() {
         this.order.changeStatus(Order.Status.SHIPPED);
+        this.order.changeShippingInfo(new ShippingInfo("서울 광진구 영화사로 77길 11, 222-333", ShippingInfo.Method.QUICK_SERVICE));
+
+        assertThat(this.order.getShippingInfo().getAddress()).isEqualTo("서울 광진구 영화사로 77길 11, 222-333");
+        assertThat(this.order.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
+    }
+
+    @Test(expected = UnavailableShippingInfoException.class)
+    public void 배송정보변경_배송중() {
+        this.order.changeStatus(Order.Status.DELIVERING);
+        this.order.changeShippingInfo(new ShippingInfo("서울 광진구 영화사로 77길 11, 222-333", ShippingInfo.Method.QUICK_SERVICE));
+
+        assertThat(this.order.getShippingInfo().getAddress()).isEqualTo("서울 광진구 영화사로 77길 11, 222-333");
+        assertThat(this.order.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
+    }
+
+    @Test(expected = UnavailableShippingInfoException.class)
+    public void 배송정보변경_배송완료() {
+        this.order.changeStatus(Order.Status.DELIVERING);
+        this.order.changeShippingInfo(new ShippingInfo("서울 광진구 영화사로 77길 11, 222-333", ShippingInfo.Method.QUICK_SERVICE));
+
+        assertThat(this.order.getShippingInfo().getAddress()).isEqualTo("서울 광진구 영화사로 77길 11, 222-333");
+        assertThat(this.order.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
+    }
+
+    @Test(expected = UnavailableShippingInfoException.class)
+    public void 배송정보변경_취소후() {
+        this.order.changeStatus(Order.Status.CANCELED);
         this.order.changeShippingInfo(new ShippingInfo("서울 광진구 영화사로 77길 11, 222-333", ShippingInfo.Method.QUICK_SERVICE));
 
         assertThat(this.order.getShippingInfo().getAddress()).isEqualTo("서울 광진구 영화사로 77길 11, 222-333");
