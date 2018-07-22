@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author homo.efficio@gmail.com
@@ -19,7 +20,8 @@ public class Category {
     private List<Product> products = new ArrayList<>();
 
     public void addProduct(Product product) {
-
+        Objects.requireNonNull(product, "카테고리에 추가할 상품은 반드시 있어야 합니다.");
+        this.products.add(product);
     }
 
     public Category(Long id, String name) {
