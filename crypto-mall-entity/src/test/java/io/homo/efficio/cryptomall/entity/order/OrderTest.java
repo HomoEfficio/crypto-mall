@@ -1,6 +1,7 @@
 package io.homo.efficio.cryptomall.entity.order;
 
 import io.homo.efficio.cryptomall.entity.member.Member;
+import io.homo.efficio.cryptomall.entity.member.exception.UnavailableMemberInfoChangeException;
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableCancellationException;
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableOrderItemChangeException;
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableShippingInfoException;
@@ -201,4 +202,31 @@ public class OrderTest {
         assertThat(this.order.getStatus()).isEqualTo(Order.Status.CANCELED);
     }
 
+    @Test
+    public void 주문의_수신자자이름이바뀌지않는_배송정보변경을_회원정보변경에_반영() {
+        this.order.changeShippingInfo(
+                new ShippingInfo("아오린",
+                        "010-5555-3333",
+                        "서울 탕진구 쫄딱로 000",
+                        ShippingInfo.Method.QUICK_SERVICE));
+
+        Member member = this.order.getOrderer();
+        member.replaceMemberInfoBy(this.order.getShippingInfo());
+
+        assertThat(member.getPhoneNumber()).isEqualTo("010-5555-3333");
+    }
+
+    @Test(expected = UnavailableMemberInfoChangeException.class)
+    public void 주문의_수신자이름이바뀌는_배송정보변경을_회원정보변경에_반영시_예외발생() {
+        this.order.changeShippingInfo(
+                new ShippingInfo("손응민",
+                        "010-5555-3333",
+                        "서울 탕진구 쫄딱로 000",
+                        ShippingInfo.Method.TACKBAE));
+
+        Member member = this.order.getOrderer();
+        member.replaceMemberInfoBy(this.order.getShippingInfo());
+
+        assertThat(member.getPhoneNumber()).isEqualTo("010-5555-3333");
+    }
 }

@@ -140,7 +140,7 @@ public class MemberTest {
                 )
                 .build();
 
-        member.changeShippingInfo(
+        member.replaceMemberInfoBy(
                 new ShippingInfo(
                         "오하칠",
                         "010-5555-1111",

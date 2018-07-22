@@ -117,5 +117,15 @@ public class Member {
         return this.status == Status.ACTIVE;
     }
 
+    public void replaceMemberInfoBy(ShippingInfo shippingInfo) {
+        if (isReplaceableByShippingInfo(shippingInfo)) {
+            this.phoneNumber = shippingInfo.getReceiverPhoneNumber();
+        } else {
+            throw new UnavailableMemberInfoChangeException();
+        }
+    }
 
+    private boolean isReplaceableByShippingInfo(ShippingInfo shippingInfo) {
+        return this.name.equals(shippingInfo.getReceiverName());
+    }
 }
