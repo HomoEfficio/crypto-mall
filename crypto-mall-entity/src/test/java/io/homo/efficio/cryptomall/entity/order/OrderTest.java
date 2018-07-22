@@ -60,7 +60,16 @@ public class OrderTest {
     }
 
     @Test
-    public void 주문취소() {
+    public void 주문취소_결제대기() {
+        this.order.cancel();
+
+        assertThat(this.order.getStatus()).isEqualTo(Order.Status.CANCELED);
+    }
+
+    @Test
+    public void 주문취소_상품준비() {
+        this.order.changeStatus(Order.Status.PREPARING_SHIPMENT);
+
         this.order.cancel();
 
         assertThat(this.order.getStatus()).isEqualTo(Order.Status.CANCELED);
