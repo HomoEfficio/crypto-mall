@@ -1,5 +1,7 @@
 package io.homo.efficio.cryptomall.entity.order;
 
+import io.homo.efficio.cryptomall.entity.order.exception.UnavailableCancellationException;
+
 import java.util.List;
 
 /**
@@ -38,6 +40,8 @@ public class Order {
     public void cancel() {
         if (isCancellable()) {
             this.status = Status.CANCELED;
+        } else {
+            throw new UnavailableCancellationException();
         }
     }
 

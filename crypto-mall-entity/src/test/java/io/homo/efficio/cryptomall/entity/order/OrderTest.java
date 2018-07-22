@@ -1,5 +1,6 @@
 package io.homo.efficio.cryptomall.entity.order;
 
+import io.homo.efficio.cryptomall.entity.order.exception.UnavailableCancellationException;
 import io.homo.efficio.cryptomall.entity.product.Product;
 import org.junit.Before;
 import org.junit.Test;
@@ -75,9 +76,27 @@ public class OrderTest {
         assertThat(this.order.getStatus()).isEqualTo(Order.Status.CANCELED);
     }
 
-    @Test
+    @Test(expected = UnavailableCancellationException.class)
     public void 주문취소_배송신청완료() {
         this.order.changeStatus(Order.Status.SHIPPED);
+
+        this.order.cancel();
+
+        assertThat(this.order.getStatus()).isEqualTo(Order.Status.CANCELED);
+    }
+
+    @Test(expected = UnavailableCancellationException.class)
+    public void 주문취소_배송중() {
+        this.order.changeStatus(Order.Status.DELIVERING);
+
+        this.order.cancel();
+
+        assertThat(this.order.getStatus()).isEqualTo(Order.Status.CANCELED);
+    }
+
+    @Test(expected = UnavailableCancellationException.class)
+    public void 주문취소_배송완료() {
+        this.order.changeStatus(Order.Status.DELIVERING);
 
         this.order.cancel();
 
