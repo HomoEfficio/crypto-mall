@@ -38,4 +38,76 @@ public class MemberTest {
         assertThat(member.getStatus()).isEqualTo(Member.Status.INACTIVE);
         assertThat(member.getGrade()).isEqualTo(Member.Grade.PREMIUM);
     }
+
+    @Test
+    public void 멤버_이름변경() {
+        Member member = new Member
+                .Required(1L, "김삼랑", "010-2222-3333")
+                .build();
+
+        member.changeName("이나일");
+
+        assertThat(member.getName()).isEqualTo("이나일");
+    }
+
+    @Test
+    public void 멤버_배송정보변경() {
+        Member member = new Member
+                .Required(1L, "김삼랑", "010-2222-3333")
+                .shippingInfo(
+                        new ShippingInfo(
+                                "아삼유",
+                                "010-2222-3333",
+                                "서울특별시 특별구 건강동",
+                                ShippingInfo.Method.TACKBAE
+                        )
+                )
+                .build();
+
+        member.changeShippingInfo(
+                new ShippingInfo(
+                        "아삼유",
+                        "010-2222-3333",
+                        "서울특별시 특별구 건강동",
+                        ShippingInfo.Method.QUICK_SERVICE
+                )
+        );
+
+        assertThat(member.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
+    }
+
+    @Test
+    public void 멤버_전화번호변경() {
+        Member member = new Member
+                .Required(1L, "김삼랑", "010-2222-3333")
+                .build();
+
+        member.changePhoneNumber("010-3333-4444");
+
+        assertThat(member.getPhoneNumber()).isEqualTo("010-3333-4444");
+    }
+
+    @Test
+    public void 멤버_상태변경() {
+        Member member = new Member
+                .Required(1L, "김삼랑", "010-2222-3333")
+                .status(Member.Status.INACTIVE)
+                .build();
+
+        member.changeStatus(Member.Status.ACTIVE);
+
+        assertThat(member.getStatus()).isEqualTo(Member.Status.ACTIVE);
+    }
+
+    @Test
+    public void 멤버_등급변경() {
+        Member member = new Member
+                .Required(1L, "김삼랑", "010-2222-3333")
+                .grade(Member.Grade.NORMAL)
+                .build();
+
+        member.changeGrade(Member.Grade.PLATINUM);
+
+        assertThat(member.getGrade()).isEqualTo(Member.Grade.PLATINUM);
+    }
 }

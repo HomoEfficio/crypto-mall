@@ -76,23 +76,23 @@ public class Member {
         this.grade = required.grade;
     }
 
-    public void changeName() {
-
+    public void changeName(String newName) {
+        this.name = newName;
     }
 
-    public void changePhoneNumber() {
-
+    public void changePhoneNumber(String newPhoneNumber) {
+        this.phoneNumber = newPhoneNumber;
     }
 
-    public void changeShippingInfo() {
-
+    public void changeShippingInfo(ShippingInfo newShippingInfo) {
+        this.shippingInfo = newShippingInfo;
     }
 
-    public void changeGrade() {
-
+    public void changeGrade(Grade newGrade) {
+        this.grade = newGrade;
     }
 
-    public void changeStatus() {
-
+    public void changeStatus(Status newStatus) {
+        this.status = newStatus;
     }
 }
