@@ -1,6 +1,7 @@
 package io.homo.efficio.cryptomall.entity.order;
 
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableCancellationException;
+import io.homo.efficio.cryptomall.entity.order.exception.UnavailableOrderItemChangeException;
 import io.homo.efficio.cryptomall.entity.order.exception.UnavailableShippingInfoException;
 import io.homo.efficio.cryptomall.entity.product.Product;
 import org.junit.Before;
@@ -48,6 +49,17 @@ public class OrderTest {
 
         final Product product02 = new Product(2L, "IOTA T-shirt type B", 20.00d);
 
+        this.order.changeOrderItem(1, new OrderItem(product02, 6));
+
+        assertThat(order.calculateAmounts()).isEqualTo(530d);
+    }
+
+
+    @Test(expected = UnavailableOrderItemChangeException.class)
+    public void 주문항목변경_결제후() {
+        this.order.changeStatus(Order.Status.PREPARING_SHIPMENT);
+
+        final Product product02 = new Product(2L, "IOTA T-shirt type B", 20.00d);
         this.order.changeOrderItem(1, new OrderItem(product02, 6));
 
         assertThat(order.calculateAmounts()).isEqualTo(530d);
@@ -149,4 +161,5 @@ public class OrderTest {
 
         assertThat(this.order.getStatus()).isEqualTo(Order.Status.CANCELED);
     }
+
 }
