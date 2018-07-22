@@ -22,7 +22,7 @@ public class Order {
                 .orElse(0.0d);
     }
 
-    public void changeOrderItem() {
+    public void changeOrderItem(int i, OrderItem orderItem) {
 
     }
 
