@@ -1,11 +1,13 @@
 package io.homo.efficio.cryptomall.entity.member;
 
 import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
+import lombok.Getter;
 
 /**
  * @author homo.efficio@gmail.com
  * created on 2018-07-22
  */
+@Getter
 public class Member {
 
     private Long id;
