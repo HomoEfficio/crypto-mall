@@ -14,7 +14,7 @@ public class OrderItem {
 
     private double amounts;
 
-    public OrderItem(Product product, int quantity, double amounts) {
+    public OrderItem(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
         this.amounts = this.product.getPrice() * this.quantity;
