@@ -71,18 +71,6 @@ public class Order {
                 || this.status == Status.PREPARING_SHIPMENT;
     }
 
-//    public List<OrderItem> getOrderItems() {
-//        return orderItems;
-//    }
-//
-//    public ShippingInfo getShippingInfo() {
-//        return shippingInfo;
-//    }
-//
-//    public Status getStatus() {
-//        return status;
-//    }
-
     public void changeStatus(Status newStatus) {
         this.status = newStatus;
     }

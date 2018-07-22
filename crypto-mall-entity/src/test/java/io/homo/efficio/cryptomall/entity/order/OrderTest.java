@@ -155,7 +155,7 @@ public class OrderTest {
 
     @Test(expected = UnavailableCancellationException.class)
     public void 주문취소_배송완료() {
-        this.order.changeStatus(Order.Status.DELIVERING);
+        this.order.changeStatus(Order.Status.DELIVERY_COMPLETED);
 
         this.order.cancel();
 
