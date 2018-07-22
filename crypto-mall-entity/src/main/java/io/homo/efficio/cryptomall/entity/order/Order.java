@@ -55,10 +55,6 @@ public class Order {
         }
     }
 
-    public void complete() {
-
-    }
-
     private boolean isOrderItemChangeable() {
         return this.status == Status.PAYMENT_WAITING;
     }
