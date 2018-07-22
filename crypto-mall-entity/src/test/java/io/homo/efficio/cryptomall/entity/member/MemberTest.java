@@ -1,5 +1,6 @@
 package io.homo.efficio.cryptomall.entity.member;
 
+import io.homo.efficio.cryptomall.entity.member.exception.UnavailableMemberInfoChangeException;
 import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
 import org.junit.Test;
 
@@ -88,7 +89,7 @@ public class MemberTest {
     }
 
     @Test
-    public void 멤버_상태변경() {
+    public void 비활성멤버_상태변경() {
         Member member = new Member
                 .Required(1L, "김삼랑", "010-2222-3333")
                 .status(Member.Status.INACTIVE)
@@ -109,5 +110,45 @@ public class MemberTest {
         member.changeGrade(Member.Grade.PLATINUM);
 
         assertThat(member.getGrade()).isEqualTo(Member.Grade.PLATINUM);
+    }
+
+    @Test(expected = UnavailableMemberInfoChangeException.class)
+    public void 비활성멤버_등급변경() {
+        Member member = new Member
+                .Required(1L, "김삼랑", "010-2222-3333")
+                .status(Member.Status.INACTIVE)
+                .grade(Member.Grade.NORMAL)
+                .build();
+
+        member.changeGrade(Member.Grade.PLATINUM);
+
+        assertThat(member.getGrade()).isEqualTo(Member.Grade.PLATINUM);
+    }
+
+    @Test(expected = UnavailableMemberInfoChangeException.class)
+    public void 비활성멤버_배송정보변경() {
+        Member member = new Member
+                .Required(1L, "김삼랑", "010-2222-3333")
+                .status(Member.Status.INACTIVE)
+                .shippingInfo(
+                        new ShippingInfo(
+                                "오하칠",
+                                "010-5555-1111",
+                                "인천 남구 만복동 777",
+                                ShippingInfo.Method.TACKBAE
+                        )
+                )
+                .build();
+
+        member.changeShippingInfo(
+                new ShippingInfo(
+                        "오하칠",
+                        "010-5555-1111",
+                        "인천 남구 만복동 888",
+                        ShippingInfo.Method.TACKBAE
+                )
+        );
+
+        assertThat(member.getShippingInfo().getAddress()).isEqualTo("인천 남구 만복동 888");
     }
 }
