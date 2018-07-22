@@ -3,6 +3,7 @@ package io.homo.efficio.cryptomall.entity.product;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * @author homo.efficio@gmail.com
@@ -18,5 +19,14 @@ public class CategoryTest {
         category.addProduct(아디닥스운동화1);
 
         assertThat(category.getProducts().size()).isEqualTo(1);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void 카테고리에_null상품추가_throws_NullPointerException() {
+        Category category = new Category(1L, "스포츠");
+
+        category.addProduct(null);
+
+        assertThat(category.getProducts().size()).isEqualTo(0);
     }
 }
