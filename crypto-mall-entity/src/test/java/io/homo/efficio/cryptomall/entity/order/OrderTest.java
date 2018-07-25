@@ -39,7 +39,7 @@ public class OrderTest {
                 new ShippingInfo("지삭렬", "010-8888-9999","인천 서구 크리스탈로 888, 999-3333", ShippingInfo.Method.TACKBAE);
 
         Member orderer = new Member.Required(
-                1L, "아오린", "010-1111-3333"
+                1L, "아오린", "abcd!@#$", "010-1111-3333"
         ).build();
 
         this.order = new Order(orderer, orderItems, shippingInfo);
@@ -54,7 +54,7 @@ public class OrderTest {
     public void 주문가격계산_주문항목없는주문_throws_NullPointerException() {
         Order order = new Order(
                 new Member.Required(
-                        1L, "아오린", "010-1111-3333"
+                        1L, "아오린", "abcd!@#$", "010-1111-3333"
                 ).build(),
                 null,
                 new ShippingInfo("탁재운", "010-3333-1111",

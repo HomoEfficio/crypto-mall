@@ -15,6 +15,8 @@ public class Member {
 
     private String name;
 
+    private String password;
+
     private String phoneNumber;
 
     private ShippingInfo shippingInfo;
@@ -36,14 +38,16 @@ public class Member {
         private Long id;
         private String name;
         private String phoneNumber;
+        private String password;
 
         private ShippingInfo shippingInfo;
         private Status status = Status.ACTIVE;
         private Grade grade = Grade.NORMAL;
 
-        public Required(Long id, String name, String phoneNumber) {
+        public Required(Long id, String name, String password, String phoneNumber) {
             this.id = id;
             this.name = name;
+            this.password = password;
             this.phoneNumber = phoneNumber;
         }
 
@@ -70,6 +74,7 @@ public class Member {
     private Member(Required required) {
         this.id = required.id;
         this.name = required.name;
+        this.password = required.password;
         this.phoneNumber = required.phoneNumber;
 
         this.shippingInfo = required.shippingInfo;
