@@ -1,11 +1,15 @@
 package io.homo.efficio.cryptomall.entity.category.repository;
 
+import io.homo.efficio.cryptomall.entity.category.Category;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * @author homo.efficio@gmail.com
@@ -24,5 +28,19 @@ public class CategoryRepositoryTest {
     @Test
     public void jpaTest() {
 
+    }
+
+    @Test
+    public void whenFindByName_thenReturnCategory() {
+        em.persist(
+                new Category(
+                        "헬스용품"
+                )
+        );
+        em.flush();
+
+        Category category = repository.findByName("헬스용품");
+
+        assertThat(category.getName()).isEqualTo("헬스용품");
     }
 }
