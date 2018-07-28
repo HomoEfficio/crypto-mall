@@ -33,10 +33,15 @@ public class ProductRepositoryTest {
 
     @Test
     public void whenFindByName__thenReturnProduct() {
+        Category category = em.persist(
+                new Category(
+                        "헬스용품"
+                )
+        );
         em.persist(
                 new Product(
                         "라텍스 밴드 중급형", 28.00d,
-                        new Category(1L, "헬스용품")
+                        category
                 )
         );
         em.flush();
