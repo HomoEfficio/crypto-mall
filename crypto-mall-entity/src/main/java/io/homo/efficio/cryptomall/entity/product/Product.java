@@ -1,6 +1,8 @@
 package io.homo.efficio.cryptomall.entity.product;
 
+import io.homo.efficio.cryptomall.entity.category.Category;
 import lombok.Getter;
+import lombok.NonNull;
 
 import javax.persistence.*;
 
@@ -28,11 +30,18 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    public Product(Long id, String name, double price) {
-        this(id, name, price, null);
+    public Product(Long id,
+                   @NonNull String name,
+                   double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
     }
 
-    public Product(Long id, String name, double price, Category category) {
+    public Product(Long id,
+                   @NonNull String name,
+                   double price,
+                   @NonNull Category category) {
         this.id = id;
         this.name = name;
         this.price = price;
