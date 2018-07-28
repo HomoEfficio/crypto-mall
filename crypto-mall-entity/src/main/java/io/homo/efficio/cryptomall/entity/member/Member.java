@@ -1,6 +1,8 @@
 package io.homo.efficio.cryptomall.entity.member;
 
 import io.homo.efficio.cryptomall.entity.member.exception.IllegalMemberInfoChangeException;
+import io.homo.efficio.cryptomall.entity.order.Order;
+import io.homo.efficio.cryptomall.entity.order.OrderItem;
 import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
 import lombok.Getter;
 
@@ -134,8 +136,8 @@ public class Member {
         return isChangeable() && this.name.equals(shippingInfo.getReceiverName());
     }
 
-    public void transferCartItemToOrderItem() {
-
+    public void transferCartItemToOrderItem(Order order, OrderItem orderItem) {
+        order.addOrderItem(orderItem);
     }
 
 }

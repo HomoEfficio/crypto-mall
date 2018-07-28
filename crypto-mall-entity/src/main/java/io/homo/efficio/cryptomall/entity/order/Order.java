@@ -81,6 +81,11 @@ public class Order {
         this.status = newStatus;
     }
 
+    public void addOrderItem(OrderItem orderItem) {
+        Objects.requireNonNull(orderItem);
+        this.orderItems.add(orderItem);
+    }
+
     public enum Status {
         PAYMENT_WAITING, PREPARING_SHIPMENT, SHIPPED, DELIVERING, DELIVERY_COMPLETED, CANCELED
     }
