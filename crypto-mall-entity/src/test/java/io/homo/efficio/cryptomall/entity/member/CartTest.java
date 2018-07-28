@@ -73,4 +73,23 @@ public class CartTest {
 
         assertThat(cart.getItems().size()).isEqualTo(0);
     }
+
+    @Test(expected = OrderItemNotFoundException.class)
+    public void 장바구니에_없는_아이템삭제시_예외발생() {
+        Member member = new Member.Required(1L, "김삼랑", "abcd!@#$", "010-2222-3333")
+                .shippingInfo(new ShippingInfo("김삼랑",
+                        "02-7777-8888",
+                        "서울 광진구 가즈아차산 777", ShippingInfo.Method.TACKBAE))
+                .build();
+        final Cart cart = new Cart(member);
+        final OrderItem orderItem1 = new OrderItem(new Product(1L, "끝내주는 상품", 17.00d), 1);
+        final OrderItem orderItem2 = new OrderItem(new Product(2L, "믿고사는 상품", 22.00d), 2);
+        final OrderItem orderItem3 = new OrderItem(new Product(3L, "호구되는 상품", 27.00d), 3);
+        cart.addItem(orderItem1);
+        cart.addItem(orderItem2);
+        cart.addItem(orderItem3);
+        OrderItem orderItem4 = new OrderItem(new Product(4L, "허수같은 상품", 30.00d), 8);
+
+        cart.removeItem(orderItem4);
+    }
 }
