@@ -35,10 +35,6 @@ public class Cart {
         }
     }
 
-    public void transferToOrder() {
-
-    }
-
     public void clear() {
         Iterator<OrderItem> iterator = this.items.iterator();
         while (iterator.hasNext()) {

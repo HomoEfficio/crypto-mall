@@ -133,4 +133,9 @@ public class Member {
     private boolean isReplaceableByShippingInfo(ShippingInfo shippingInfo) {
         return isChangeable() && this.name.equals(shippingInfo.getReceiverName());
     }
+
+    public void transferCartItemToOrderItem() {
+
+    }
+
 }
