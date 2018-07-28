@@ -25,6 +25,7 @@ public class Category {
 
     private String name;
 
+    @OneToMany(mappedBy = "category")
     private List<Product> products = new ArrayList<>();
 
     public void addProduct(@NonNull Product product) {
