@@ -7,6 +7,8 @@ import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
 import io.homo.efficio.cryptomall.entity.product.Product;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
@@ -252,8 +254,10 @@ public class MemberTest {
         cart.addItem(orderItem2);
         cart.addItem(orderItem3);
 
-        member.transferCartItemToOrderItem(cart);
+        Order order = new Order(member, new ArrayList<OrderItem>(), member.getShippingInfo());
+        member.transferCartItemToOrderItem(order, orderItem1);
 
-        assertThat() // 뭔가 테스트하기가 곤란하다.
+        assertThat(order.getOrderItems().size()).isEqualTo(1);
+        assertThat(order.getOrderItems().get(0).getProduct().getName()).isEqualTo("끝내주는 상품");
     }
 }
