@@ -5,6 +5,7 @@ import io.homo.efficio.cryptomall.entity.order.exception.IllegalCancellationExce
 import io.homo.efficio.cryptomall.entity.order.exception.IllegalOrderItemChangeException;
 import io.homo.efficio.cryptomall.entity.order.exception.IllegalShippingInfoChangeException;
 import lombok.Getter;
+import lombok.NonNull;
 
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +25,9 @@ public class Order {
 
     private Status status;
 
-    public Order(Member orderer, List<OrderItem> orderItems, ShippingInfo shippingInfo) {
+    public Order(@NonNull Member orderer,
+                 @NonNull List<OrderItem> orderItems,
+                 @NonNull ShippingInfo shippingInfo) {
         this.orderer = orderer;
         this.orderItems = orderItems;
         this.shippingInfo = shippingInfo;

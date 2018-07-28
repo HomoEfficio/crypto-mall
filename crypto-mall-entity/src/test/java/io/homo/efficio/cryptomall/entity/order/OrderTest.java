@@ -229,4 +229,45 @@ public class OrderTest {
 
         assertThat(member.getPhoneNumber()).isEqualTo("010-5555-3333");
     }
+
+    @Test(expected = NullPointerException.class)
+    public void 주문생성시_주문자가_null() {
+
+        Order order = new Order(
+                null,
+                Arrays.asList(
+                        new OrderItem(new Product(1L, "IOTA T-shirt type A", 20.00d), 3),
+                        new OrderItem(new Product(2L, "IOTA T-shirt type B", 20.00d), 5),
+                        new OrderItem(new Product(3L, "EOS Hood type C", 50.00d), 7)
+                ),
+                new ShippingInfo("탁재운", "010-3333-1111",
+                        "서울 강남구 한강동 가즈아파트 333-333",
+                        ShippingInfo.Method.QUICK_SERVICE));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void 주문생성시_주문아이템이_null() {
+        Order order = new Order(
+                new Member.Required(
+                        1L, "아오린", "abcd!@#$", "010-1111-3333"
+                ).build(),
+                null,
+                new ShippingInfo("탁재운", "010-3333-1111",
+                        "서울 강남구 한강동 가즈아파트 333-333",
+                        ShippingInfo.Method.QUICK_SERVICE));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void 주문생성시_배송정보가_null() {
+        Order order = new Order(
+                new Member.Required(
+                        1L, "아오린", "abcd!@#$", "010-1111-3333"
+                ).build(),
+                Arrays.asList(
+                        new OrderItem(new Product(1L, "IOTA T-shirt type A", 20.00d), 3),
+                        new OrderItem(new Product(2L, "IOTA T-shirt type B", 20.00d), 5),
+                        new OrderItem(new Product(3L, "EOS Hood type C", 50.00d), 7)
+                ),
+                null);
+    }
 }
