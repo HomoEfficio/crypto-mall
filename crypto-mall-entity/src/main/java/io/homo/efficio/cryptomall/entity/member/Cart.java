@@ -4,6 +4,7 @@ import io.homo.efficio.cryptomall.entity.order.OrderItem;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -34,6 +35,14 @@ public class Cart {
     }
 
     public void clear() {
-
+        Iterator<OrderItem> iterator = this.items.iterator();
+        while (iterator.hasNext()) {
+            OrderItem nextItem = iterator.next();
+            iterator.remove();
+        }
+        // 아래의 코드는 java.util.ConcurrentModificationException 을 일으킨다.
+//        for (OrderItem orderItem: this.items) {
+//            this.items.remove(orderItem);
+//        }
     }
 }
