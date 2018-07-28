@@ -1,6 +1,6 @@
 package io.homo.efficio.cryptomall.entity.member;
 
-import io.homo.efficio.cryptomall.entity.member.exception.UnavailableMemberInfoChangeException;
+import io.homo.efficio.cryptomall.entity.member.exception.IllegalMemberInfoChangeException;
 import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
 import org.junit.Test;
 
@@ -113,7 +113,7 @@ public class MemberTest {
         assertThat(member.getGrade()).isEqualTo(Member.Grade.PLATINUM);
     }
 
-    @Test(expected = UnavailableMemberInfoChangeException.class)
+    @Test(expected = IllegalMemberInfoChangeException.class)
     public void 비활성멤버_등급변경() {
         Member member = new Member
                 .Required(1L, "김삼랑", "abcd!@#$", "010-2222-3333")
@@ -126,7 +126,7 @@ public class MemberTest {
         assertThat(member.getGrade()).isEqualTo(Member.Grade.PLATINUM);
     }
 
-    @Test(expected = UnavailableMemberInfoChangeException.class)
+    @Test(expected = IllegalMemberInfoChangeException.class)
     public void 비활성멤버_배송정보변경() {
         Member member = new Member
                 .Required(1L, "김삼랑", "abcd!@#$", "010-2222-3333")
@@ -153,7 +153,7 @@ public class MemberTest {
         assertThat(member.getShippingInfo().getAddress()).isEqualTo("인천 남구 만복동 888");
     }
 
-    @Test(expected = UnavailableMemberInfoChangeException.class)
+    @Test(expected = IllegalMemberInfoChangeException.class)
     public void 배송정보이름이회원이름과_다른경우_배송정보로_회원정보변경시_예외() {
         Member member = new Member
                 .Required(1L, "김삼랑", "abcd!@#$", "010-2222-3333")
@@ -207,7 +207,7 @@ public class MemberTest {
         assertThat(member.getPhoneNumber()).isEqualTo("010-3333-3333");
     }
 
-    @Test(expected = UnavailableMemberInfoChangeException.class)
+    @Test(expected = IllegalMemberInfoChangeException.class)
     public void 배송정보이름이_비활성회원이름과_같을경우_배송정보로_회원정보변경시_예외() {
         Member member = new Member
                 .Required(1L, "김삼랑", "abcd!@#$", "010-2222-3333")

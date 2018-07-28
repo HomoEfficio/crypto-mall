@@ -1,6 +1,6 @@
 package io.homo.efficio.cryptomall.entity.member;
 
-import io.homo.efficio.cryptomall.entity.member.exception.UnavailableMemberInfoChangeException;
+import io.homo.efficio.cryptomall.entity.member.exception.IllegalMemberInfoChangeException;
 import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
 import lombok.Getter;
 
@@ -86,7 +86,7 @@ public class Member {
         if (isChangeable()) {
             this.name = newName;
         } else {
-            throw new UnavailableMemberInfoChangeException();
+            throw new IllegalMemberInfoChangeException();
         }
     }
 
@@ -94,7 +94,7 @@ public class Member {
         if (isChangeable()) {
             this.phoneNumber = newPhoneNumber;
         } else {
-            throw new UnavailableMemberInfoChangeException();
+            throw new IllegalMemberInfoChangeException();
         }
     }
 
@@ -102,7 +102,7 @@ public class Member {
         if (isChangeable()) {
             this.shippingInfo = newShippingInfo;
         } else {
-            throw new UnavailableMemberInfoChangeException();
+            throw new IllegalMemberInfoChangeException();
         }
     }
 
@@ -110,7 +110,7 @@ public class Member {
         if (isChangeable()) {
             this.grade = newGrade;
         } else {
-            throw new UnavailableMemberInfoChangeException();
+            throw new IllegalMemberInfoChangeException();
         }
     }
 
@@ -126,7 +126,7 @@ public class Member {
         if (isReplaceableByShippingInfo(shippingInfo)) {
             this.phoneNumber = shippingInfo.getReceiverPhoneNumber();
         } else {
-            throw new UnavailableMemberInfoChangeException();
+            throw new IllegalMemberInfoChangeException();
         }
     }
 

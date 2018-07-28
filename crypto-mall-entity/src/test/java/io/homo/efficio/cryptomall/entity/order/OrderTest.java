@@ -1,10 +1,10 @@
 package io.homo.efficio.cryptomall.entity.order;
 
 import io.homo.efficio.cryptomall.entity.member.Member;
-import io.homo.efficio.cryptomall.entity.member.exception.UnavailableMemberInfoChangeException;
-import io.homo.efficio.cryptomall.entity.order.exception.UnavailableCancellationException;
-import io.homo.efficio.cryptomall.entity.order.exception.UnavailableOrderItemChangeException;
-import io.homo.efficio.cryptomall.entity.order.exception.UnavailableShippingInfoException;
+import io.homo.efficio.cryptomall.entity.member.exception.IllegalMemberInfoChangeException;
+import io.homo.efficio.cryptomall.entity.order.exception.IllegalCancellationException;
+import io.homo.efficio.cryptomall.entity.order.exception.IllegalOrderItemChangeException;
+import io.homo.efficio.cryptomall.entity.order.exception.IllegalShippingInfoChangeException;
 import io.homo.efficio.cryptomall.entity.product.Product;
 import org.junit.Before;
 import org.junit.Test;
@@ -74,7 +74,7 @@ public class OrderTest {
     }
 
 
-    @Test(expected = UnavailableOrderItemChangeException.class)
+    @Test(expected = IllegalOrderItemChangeException.class)
     public void 주문항목변경_결제후() {
         this.order.changeStatus(Order.Status.PREPARING_SHIPMENT);
 
@@ -111,7 +111,7 @@ public class OrderTest {
         assertThat(this.order.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
     }
 
-    @Test(expected = UnavailableShippingInfoException.class)
+    @Test(expected = IllegalShippingInfoChangeException.class)
     public void 배송정보변경_배송신청이후() {
         this.order.changeStatus(Order.Status.SHIPPED);
 
@@ -123,7 +123,7 @@ public class OrderTest {
         assertThat(this.order.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
     }
 
-    @Test(expected = UnavailableShippingInfoException.class)
+    @Test(expected = IllegalShippingInfoChangeException.class)
     public void 배송정보변경_배송중() {
         this.order.changeStatus(Order.Status.DELIVERING);
 
@@ -135,7 +135,7 @@ public class OrderTest {
         assertThat(this.order.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
     }
 
-    @Test(expected = UnavailableShippingInfoException.class)
+    @Test(expected = IllegalShippingInfoChangeException.class)
     public void 배송정보변경_배송완료() {
         this.order.changeStatus(Order.Status.DELIVERY_COMPLETED);
 
@@ -147,7 +147,7 @@ public class OrderTest {
         assertThat(this.order.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.QUICK_SERVICE);
     }
 
-    @Test(expected = UnavailableShippingInfoException.class)
+    @Test(expected = IllegalShippingInfoChangeException.class)
     public void 배송정보변경_취소후() {
         this.order.changeStatus(Order.Status.CANCELED);
 
@@ -175,7 +175,7 @@ public class OrderTest {
         assertThat(this.order.getStatus()).isEqualTo(Order.Status.CANCELED);
     }
 
-    @Test(expected = UnavailableCancellationException.class)
+    @Test(expected = IllegalCancellationException.class)
     public void 주문취소_배송신청완료() {
         this.order.changeStatus(Order.Status.SHIPPED);
 
@@ -184,7 +184,7 @@ public class OrderTest {
         assertThat(this.order.getStatus()).isEqualTo(Order.Status.CANCELED);
     }
 
-    @Test(expected = UnavailableCancellationException.class)
+    @Test(expected = IllegalCancellationException.class)
     public void 주문취소_배송중() {
         this.order.changeStatus(Order.Status.DELIVERING);
 
@@ -193,7 +193,7 @@ public class OrderTest {
         assertThat(this.order.getStatus()).isEqualTo(Order.Status.CANCELED);
     }
 
-    @Test(expected = UnavailableCancellationException.class)
+    @Test(expected = IllegalCancellationException.class)
     public void 주문취소_배송완료() {
         this.order.changeStatus(Order.Status.DELIVERY_COMPLETED);
 
@@ -216,7 +216,7 @@ public class OrderTest {
         assertThat(member.getPhoneNumber()).isEqualTo("010-5555-3333");
     }
 
-    @Test(expected = UnavailableMemberInfoChangeException.class)
+    @Test(expected = IllegalMemberInfoChangeException.class)
     public void 주문의_수신자이름이바뀌는_배송정보변경을_회원정보변경에_반영시_예외발생() {
         this.order.changeShippingInfo(
                 new ShippingInfo("손응민",

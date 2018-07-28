@@ -1,9 +1,9 @@
 package io.homo.efficio.cryptomall.entity.order;
 
 import io.homo.efficio.cryptomall.entity.member.Member;
-import io.homo.efficio.cryptomall.entity.order.exception.UnavailableCancellationException;
-import io.homo.efficio.cryptomall.entity.order.exception.UnavailableOrderItemChangeException;
-import io.homo.efficio.cryptomall.entity.order.exception.UnavailableShippingInfoException;
+import io.homo.efficio.cryptomall.entity.order.exception.IllegalCancellationException;
+import io.homo.efficio.cryptomall.entity.order.exception.IllegalOrderItemChangeException;
+import io.homo.efficio.cryptomall.entity.order.exception.IllegalShippingInfoChangeException;
 import lombok.Getter;
 
 import java.util.List;
@@ -43,7 +43,7 @@ public class Order {
         if (isOrderItemChangeable()) {
             this.orderItems.set(i, newOrderItem);
         } else {
-            throw new UnavailableOrderItemChangeException();
+            throw new IllegalOrderItemChangeException();
         }
     }
 
@@ -51,7 +51,7 @@ public class Order {
         if (isShippingInfoChangeable()) {
             this.shippingInfo = newShippingInfo;
         } else {
-            throw new UnavailableShippingInfoException();
+            throw new IllegalShippingInfoChangeException();
         }
     }
 
@@ -59,7 +59,7 @@ public class Order {
         if (isCancellable()) {
             this.status = Status.CANCELED;
         } else {
-            throw new UnavailableCancellationException();
+            throw new IllegalCancellationException();
         }
     }
 
