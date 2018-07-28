@@ -2,10 +2,15 @@ package io.homo.efficio.cryptomall.entity.product;
 
 import lombok.Getter;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * @author homo.efficio@gmail.com
  * Created on 2018-07-22.
  */
+@Entity
+@Table(name = "PRODUCT")
 @Getter
 public class Product {
 
