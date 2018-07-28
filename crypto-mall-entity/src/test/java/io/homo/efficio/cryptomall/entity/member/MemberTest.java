@@ -260,4 +260,31 @@ public class MemberTest {
         assertThat(order.getOrderItems().size()).isEqualTo(1);
         assertThat(order.getOrderItems().get(0).getProduct().getName()).isEqualTo("끝내주는 상품");
     }
+
+    @Test(expected = NullPointerException.class)
+    public void 이름이_null_인_멤버생성_예외() {
+        new Member.Required(1L,
+                null,
+                "1234!@#$",
+                "010-8888-9999")
+                .build();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void 비밀번호_null_인_멤버생성_예외() {
+        new Member.Required(1L,
+                "EOS",
+                null,
+                "010-8888-9999")
+                .build();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void 전화번호_null_인_멤버생성_예외() {
+        new Member.Required(1L,
+                "EOS",
+                "3456#$$",
+                null)
+                .build();
+    }
 }
