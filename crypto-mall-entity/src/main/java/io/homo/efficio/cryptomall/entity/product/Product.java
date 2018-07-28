@@ -46,4 +46,12 @@ public class Product {
         this.category = category;
     }
 
+    public Product(@NonNull String name,
+                   double price,
+                   @NonNull Category category) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+    }
+
 }
