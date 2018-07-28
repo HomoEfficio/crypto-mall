@@ -15,8 +15,6 @@ import javax.persistence.*;
 @Getter
 public class Product {
 
-    // TODO: @NonNull 적용
-
     @Id
     @GeneratedValue
     @Column(name = "product_id")
