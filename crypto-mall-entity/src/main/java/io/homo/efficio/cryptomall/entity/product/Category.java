@@ -13,6 +13,8 @@ import java.util.Objects;
 @Getter
 public class Category {
 
+    // TODO: @NonNull 적용
+
     private Long id;
 
     private String name;

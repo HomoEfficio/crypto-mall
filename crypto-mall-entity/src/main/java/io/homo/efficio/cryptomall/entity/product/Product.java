@@ -9,6 +9,8 @@ import lombok.Getter;
 @Getter
 public class Product {
 
+    // TODO: @NonNull 적용
+
     private Long id;
 
     private String name;
