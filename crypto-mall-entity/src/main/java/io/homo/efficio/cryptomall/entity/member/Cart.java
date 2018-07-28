@@ -25,8 +25,8 @@ public class Cart {
         this.items.add(orderItem);
     }
 
-    public void removeItem() {
-
+    public void removeItem(OrderItem orderItem) {
+        this.items.remove(orderItem);
     }
 
     public void transferToOrder() {
