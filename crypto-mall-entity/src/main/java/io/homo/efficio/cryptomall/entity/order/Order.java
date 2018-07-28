@@ -84,8 +84,7 @@ public class Order {
         this.status = newStatus;
     }
 
-    public void addOrderItem(OrderItem orderItem) {
-        Objects.requireNonNull(orderItem);
+    public void addOrderItem(@NonNull OrderItem orderItem) {
         this.orderItems.add(orderItem);
     }
 

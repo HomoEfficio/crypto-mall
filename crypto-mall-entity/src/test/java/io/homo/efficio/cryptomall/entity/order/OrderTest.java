@@ -270,4 +270,9 @@ public class OrderTest {
                 ),
                 null);
     }
+
+    @Test(expected = NullPointerException.class)
+    public void 주문항목에_null_추가() {
+        this.order.addOrderItem(null);
+    }
 }
