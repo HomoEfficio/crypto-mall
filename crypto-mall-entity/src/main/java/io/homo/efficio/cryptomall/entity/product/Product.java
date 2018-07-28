@@ -2,8 +2,7 @@ package io.homo.efficio.cryptomall.entity.product;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @author homo.efficio@gmail.com
@@ -16,6 +15,9 @@ public class Product {
 
     // TODO: @NonNull 적용
 
+    @Id
+    @GeneratedValue
+    @Column(name = "product_id")
     private Long id;
 
     private String name;
