@@ -1,5 +1,7 @@
-package io.homo.efficio.cryptomall.entity.product;
+package io.homo.efficio.cryptomall.entity.category;
 
+import io.homo.efficio.cryptomall.entity.category.Category;
+import io.homo.efficio.cryptomall.entity.product.Product;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

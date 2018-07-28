@@ -1,5 +1,6 @@
-package io.homo.efficio.cryptomall.entity.product;
+package io.homo.efficio.cryptomall.entity.category;
 
+import io.homo.efficio.cryptomall.entity.product.Product;
 import lombok.Getter;
 import lombok.NonNull;
 
