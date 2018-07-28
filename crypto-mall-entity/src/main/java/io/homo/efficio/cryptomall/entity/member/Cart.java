@@ -1,6 +1,7 @@
 package io.homo.efficio.cryptomall.entity.member;
 
 import io.homo.efficio.cryptomall.entity.order.OrderItem;
+import io.homo.efficio.cryptomall.entity.order.exception.OrderItemNotFoundException;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -27,7 +28,11 @@ public class Cart {
     }
 
     public void removeItem(OrderItem orderItem) {
-        this.items.remove(orderItem);
+        if (this.items.contains(orderItem)) {
+            this.items.remove(orderItem);
+        } else {
+            throw new OrderItemNotFoundException();
+        }
     }
 
     public void transferToOrder() {

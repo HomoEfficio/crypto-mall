@@ -2,6 +2,7 @@ package io.homo.efficio.cryptomall.entity.member;
 
 import io.homo.efficio.cryptomall.entity.order.OrderItem;
 import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
+import io.homo.efficio.cryptomall.entity.order.exception.OrderItemNotFoundException;
 import io.homo.efficio.cryptomall.entity.product.Product;
 import org.junit.Test;
 
