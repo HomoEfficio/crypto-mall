@@ -1,7 +1,10 @@
 package io.homo.efficio.cryptomall.entity.member;
 
 import io.homo.efficio.cryptomall.entity.member.exception.IllegalMemberInfoChangeException;
+import io.homo.efficio.cryptomall.entity.order.Order;
+import io.homo.efficio.cryptomall.entity.order.OrderItem;
 import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
+import io.homo.efficio.cryptomall.entity.product.Product;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -232,5 +235,25 @@ public class MemberTest {
         );
 
         assertThat(member.getPhoneNumber()).isEqualTo("010-3333-3333");
+    }
+
+    @Test
+    public void 장바구니에담긴상품을_주문상품으로변경() {
+        Member member = new Member.Required(1L, "김삼랑", "abcd!@#$", "010-2222-3333")
+                .shippingInfo(new ShippingInfo("김삼랑",
+                        "02-7777-8888",
+                        "서울 광진구 가즈아차산 777", ShippingInfo.Method.TACKBAE))
+                .build();
+        final Cart cart = new Cart(member);
+        final OrderItem orderItem1 = new OrderItem(new Product(1L, "끝내주는 상품", 17.00d), 1);
+        final OrderItem orderItem2 = new OrderItem(new Product(2L, "믿고사는 상품", 22.00d), 2);
+        final OrderItem orderItem3 = new OrderItem(new Product(3L, "호구되는 상품", 27.00d), 3);
+        cart.addItem(orderItem1);
+        cart.addItem(orderItem2);
+        cart.addItem(orderItem3);
+
+        member.transferCartItemToOrderItem(cart);
+
+        assertThat() // 뭔가 테스트하기가 곤란하다.
     }
 }
