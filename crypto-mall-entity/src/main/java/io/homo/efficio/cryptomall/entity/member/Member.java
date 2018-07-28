@@ -5,6 +5,7 @@ import io.homo.efficio.cryptomall.entity.order.Order;
 import io.homo.efficio.cryptomall.entity.order.OrderItem;
 import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
 import lombok.Getter;
+import lombok.NonNull;
 
 /**
  * @author homo.efficio@gmail.com
@@ -46,7 +47,10 @@ public class Member {
         private Status status = Status.ACTIVE;
         private Grade grade = Grade.NORMAL;
 
-        public Required(Long id, String name, String password, String phoneNumber) {
+        public Required(Long id,
+                        @NonNull String name,
+                        @NonNull String password,
+                        @NonNull String phoneNumber) {
             this.id = id;
             this.name = name;
             this.password = password;
