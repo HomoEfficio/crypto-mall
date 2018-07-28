@@ -17,8 +17,6 @@ import java.util.List;
 @Getter
 public class Category {
 
-    // TODO: @NonNull 적용
-
     @Id
     @GeneratedValue
     @Column(name = "category_id")
@@ -33,12 +31,12 @@ public class Category {
         this.products.add(product);
     }
 
-    public Category(Long id, String name) {
+    public Category(Long id, @NonNull String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Category(String name) {
+    public Category(@NonNull String name) {
         this.name = name;
     }
 }

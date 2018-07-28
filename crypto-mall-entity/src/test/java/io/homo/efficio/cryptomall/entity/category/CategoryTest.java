@@ -24,6 +24,11 @@ public class CategoryTest {
     }
 
     @Test(expected = NullPointerException.class)
+    public void 이름이_null인_카테고리생성_예외() {
+        Category category = new Category(1L, null);
+    }
+
+    @Test(expected = NullPointerException.class)
     public void 카테고리에_null상품추가_throws_NullPointerException() {
         Category category = new Category(1L, "스포츠");
 
