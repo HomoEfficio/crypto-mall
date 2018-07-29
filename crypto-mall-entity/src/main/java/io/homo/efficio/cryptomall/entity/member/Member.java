@@ -32,8 +32,10 @@ public class Member {
     @Embedded
     private ShippingInfo shippingInfo;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Enumerated(EnumType.STRING)
     private Grade grade;
 
     public enum Status {

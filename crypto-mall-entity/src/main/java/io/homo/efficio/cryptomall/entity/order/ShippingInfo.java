@@ -3,6 +3,8 @@ package io.homo.efficio.cryptomall.entity.order;
 import lombok.Getter;
 
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 /**
  * @author homo.efficio@gmail.com
@@ -18,6 +20,7 @@ public class ShippingInfo {
 
     private String address;
 
+    @Enumerated(EnumType.STRING)
     private Method method;
 
     public enum Method {
