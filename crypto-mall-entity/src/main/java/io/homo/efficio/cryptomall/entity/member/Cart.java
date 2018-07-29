@@ -4,10 +4,7 @@ import io.homo.efficio.cryptomall.entity.order.OrderItem;
 import io.homo.efficio.cryptomall.entity.order.exception.OrderItemNotFoundException;
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -24,6 +21,9 @@ public class Cart {
     @Id
     private Member owner;
 
+    @ElementCollection
+    @CollectionTable(name = "CART_ITEMS",
+                     joinColumns = { @JoinColumn(name = "owner") })
     private List<OrderItem> items = new ArrayList<>();
 
     public Cart(Member owner) {
