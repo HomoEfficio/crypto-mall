@@ -7,10 +7,15 @@ import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
 import lombok.Getter;
 import lombok.NonNull;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * @author homo.efficio@gmail.com
  * created on 2018-07-22
  */
+@Entity
+@Table(name = "MEMBER")
 @Getter
 public class Member {
 
