@@ -3,10 +3,13 @@ package io.homo.efficio.cryptomall.entity.order;
 import io.homo.efficio.cryptomall.entity.product.Product;
 import lombok.Getter;
 
+import javax.persistence.Embeddable;
+
 /**
  * @author homo.efficio@gmail.com
  * Created on 2018-07-22.
  */
+@Embeddable
 @Getter
 public class OrderItem {
 
