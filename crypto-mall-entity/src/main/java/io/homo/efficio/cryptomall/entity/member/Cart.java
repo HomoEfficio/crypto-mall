@@ -21,6 +21,7 @@ import java.util.List;
 @Getter
 public class Cart {
 
+    @Id
     private Member owner;
 
     private List<OrderItem> items = new ArrayList<>();
