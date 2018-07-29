@@ -3,6 +3,7 @@ package io.homo.efficio.cryptomall.entity.member.repository;
 import io.homo.efficio.cryptomall.entity.member.Member;
 import io.homo.efficio.cryptomall.entity.member.MemberRepository;
 import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +28,23 @@ public class MemberRepositoryTest {
     @Autowired
     private MemberRepository repository;
 
+    private Member member;
+
+    @Before
+    public void setup() {
+        member = new Member.Required("김삼랑", "abcdef@ghi.com", "abcd!@#$", "010-2222-3333")
+                .shippingInfo(new ShippingInfo("김삼랑",
+                        "02-7777-8888",
+                        "서울 광진구 가즈아차산 777", ShippingInfo.Method.TACKBAE))
+                .build();
+    }
+
     @Test
     public void jpaTestContextLoads() {}
 
     @Test
     public void whenFindByEmail__thenReturnMember() {
-        Member member = new Member.Required("김삼랑", "abcdef@ghi.com", "abcd!@#$", "010-2222-3333")
-                .shippingInfo(new ShippingInfo("김삼랑",
-                        "02-7777-8888",
-                        "서울 광진구 가즈아차산 777", ShippingInfo.Method.TACKBAE))
-                .build();
+        
         em.persist(member);
         em.flush();
 
