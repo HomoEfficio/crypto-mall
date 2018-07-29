@@ -1,7 +1,10 @@
 package io.homo.efficio.cryptomall.entity.product.repository;
 
+import io.homo.efficio.cryptomall.entity.category.Category;
 import io.homo.efficio.cryptomall.entity.product.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 /**
  * @author homo.efficio@gmail.com
@@ -9,4 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findByName(String name);
+
+    List<Product> findByCategory(Category category);
 }
