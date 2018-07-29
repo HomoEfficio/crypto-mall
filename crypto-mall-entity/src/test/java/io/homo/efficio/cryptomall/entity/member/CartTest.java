@@ -17,7 +17,8 @@ public class CartTest {
 
     @Test
     public void 아이템_추가() {
-        Member member = new Member.Required(1L, "김삼랑", "abcd!@#$", "010-2222-3333")
+        Member member = new Member.Required("김삼랑", "abcd!@#$", "010-2222-3333")
+                .id(1L)
                 .shippingInfo(new ShippingInfo("김삼랑",
                         "02-7777-8888",
                         "서울 광진구 가즈아차산 777", ShippingInfo.Method.TACKBAE))
@@ -34,7 +35,8 @@ public class CartTest {
 
     @Test
     public void 아이템_삭제() {
-        Member member = new Member.Required(1L, "김삼랑", "abcd!@#$", "010-2222-3333")
+        Member member = new Member.Required("김삼랑", "abcd!@#$", "010-2222-3333")
+                .id(1L)
                 .shippingInfo(new ShippingInfo("김삼랑",
                         "02-7777-8888",
                         "서울 광진구 가즈아차산 777", ShippingInfo.Method.TACKBAE))
@@ -57,7 +59,8 @@ public class CartTest {
 
     @Test
     public void 장바구니_삭제() {
-        Member member = new Member.Required(1L, "김삼랑", "abcd!@#$", "010-2222-3333")
+        Member member = new Member.Required("김삼랑", "abcd!@#$", "010-2222-3333")
+                .id(1L)
                 .shippingInfo(new ShippingInfo("김삼랑",
                         "02-7777-8888",
                         "서울 광진구 가즈아차산 777", ShippingInfo.Method.TACKBAE))
@@ -77,7 +80,8 @@ public class CartTest {
 
     @Test(expected = OrderItemNotFoundException.class)
     public void 장바구니에_없는_아이템삭제시_예외발생() {
-        Member member = new Member.Required(1L, "김삼랑", "abcd!@#$", "010-2222-3333")
+        Member member = new Member.Required("김삼랑", "abcd!@#$", "010-2222-3333")
+                .id(1L)
                 .shippingInfo(new ShippingInfo("김삼랑",
                         "02-7777-8888",
                         "서울 광진구 가즈아차산 777", ShippingInfo.Method.TACKBAE))

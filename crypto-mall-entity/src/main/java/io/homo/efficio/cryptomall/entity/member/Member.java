@@ -47,14 +47,17 @@ public class Member {
         private Status status = Status.ACTIVE;
         private Grade grade = Grade.NORMAL;
 
-        public Required(Long id,
-                        @NonNull String name,
+        public Required(@NonNull String name,
                         @NonNull String password,
                         @NonNull String phoneNumber) {
-            this.id = id;
             this.name = name;
             this.password = password;
             this.phoneNumber = phoneNumber;
+        }
+
+        public Required id(Long id) {
+            this.id = id;
+            return this;
         }
 
         public Required shippingInfo(ShippingInfo shippingInfo) {
@@ -78,11 +81,11 @@ public class Member {
     }
 
     private Member(Required required) {
-        this.id = required.id;
         this.name = required.name;
         this.password = required.password;
         this.phoneNumber = required.phoneNumber;
 
+        this.id = required.id;
         this.shippingInfo = required.shippingInfo;
         this.status = required.status;
         this.grade = required.grade;
