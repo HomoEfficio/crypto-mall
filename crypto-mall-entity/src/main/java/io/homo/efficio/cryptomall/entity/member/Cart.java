@@ -19,6 +19,7 @@ import java.util.List;
 public class Cart {
 
     @Id
+    @OneToOne
     private Member owner;
 
     @ElementCollection
