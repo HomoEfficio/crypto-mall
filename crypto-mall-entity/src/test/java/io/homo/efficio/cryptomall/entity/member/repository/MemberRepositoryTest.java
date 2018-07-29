@@ -11,6 +11,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
@@ -44,7 +46,7 @@ public class MemberRepositoryTest {
 
     @Test
     public void whenFindByEmail__thenReturnMember() {
-        
+
         em.persist(member);
         em.flush();
 
@@ -52,5 +54,16 @@ public class MemberRepositoryTest {
 
         assertThat(persistedMember.getName()).isEqualTo("김삼랑");
         assertThat(persistedMember.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.TACKBAE);
+    }
+
+    @Test
+    public void whenSave__thenReturnMember() {
+        final Member persistedMember = repository.save(member);
+
+        final Optional<Member> foundMember = repository.findById(persistedMember.getId());
+        assertThat(foundMember.get().getShippingInfo().getAddress())
+                .isEqualTo("서울 광진구 가즈아차산 777");
+        assertThat(foundMember.get().getEmail())
+                .isEqualTo("abcdef@ghi.com");
     }
 }
