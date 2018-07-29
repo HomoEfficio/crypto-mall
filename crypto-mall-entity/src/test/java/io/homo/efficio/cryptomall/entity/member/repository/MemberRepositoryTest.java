@@ -33,7 +33,7 @@ public class MemberRepositoryTest {
     @Test
     public void whenFindByEmail__thenReturnMember() {
         Member member = new Member.Required("김삼랑", "abcdef@ghi.com", "abcd!@#$", "010-2222-3333")
-                .id(1L)
+//                .id(1L)
                 .shippingInfo(new ShippingInfo("김삼랑",
                         "02-7777-8888",
                         "서울 광진구 가즈아차산 777", ShippingInfo.Method.TACKBAE))
