@@ -13,6 +13,7 @@ import javax.persistence.Embeddable;
 @Getter
 public class OrderItem {
 
+    // TODO: ID 클래스를 이용한 매핑?
     private Product product;
 
     private int quantity;
