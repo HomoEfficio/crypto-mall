@@ -14,7 +14,8 @@ import javax.persistence.*;
  * created on 2018-07-22
  */
 @Entity
-@Table(name = "MEMBER")
+@Table(name = "MEMBER",
+       indexes = { @Index(name = "IDX_MEMBER_EMAIL", columnList = "email", unique = true) })
 @Getter
 public class Member {
 
