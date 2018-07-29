@@ -12,7 +12,6 @@ import javax.persistence.Enumerated;
  * Created on 2018-07-22.
  */
 @Embeddable
-@NoArgsConstructor
 @Getter
 public class ShippingInfo {
 
@@ -27,6 +26,9 @@ public class ShippingInfo {
 
     public enum Method {
         TACKBAE, QUICK_SERVICE
+    }
+
+    protected ShippingInfo() {
     }
 
     public ShippingInfo(String receiverName, String receiverPhoneNumber, String address, Method method) {
