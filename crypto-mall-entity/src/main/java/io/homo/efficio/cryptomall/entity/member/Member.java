@@ -7,8 +7,7 @@ import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
 import lombok.Getter;
 import lombok.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @author homo.efficio@gmail.com
@@ -19,6 +18,9 @@ import javax.persistence.Table;
 @Getter
 public class Member {
 
+    @Id
+    @GeneratedValue
+    @Column(name = "member_id")
     private Long id;
 
     private String name;
