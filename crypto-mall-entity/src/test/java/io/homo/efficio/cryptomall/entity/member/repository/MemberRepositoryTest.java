@@ -34,7 +34,7 @@ public class MemberRepositoryTest {
 
     @Before
     public void setup() {
-        member = new Member.Required("김삼랑", "abcdef@ghi.com", "abcd!@#$", "010-2222-3333")
+        member = new Member.Required("김삼랑", "abcdef@ghi.com", "010-2222-3333", "abcd!@#$")
                 .shippingInfo(new ShippingInfo("김삼랑",
                         "02-7777-8888",
                         "서울 광진구 가즈아차산 777", ShippingInfo.Method.TACKBAE))
@@ -65,5 +65,28 @@ public class MemberRepositoryTest {
                 .isEqualTo("서울 광진구 가즈아차산 777");
         assertThat(foundMember.get().getEmail())
                 .isEqualTo("abcdef@ghi.com");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void whenSaveWithDupEmail__thenThrowException() {
+        final Member persistedMember1 = repository.save(member);
+        final Member persistedMember2 = repository.save(
+                new Member.Required("오푼젤", "abcdef@ghi.com", "010-2222-3333", "abcd!@#$")
+                        .shippingInfo(new ShippingInfo("뚱띠기",
+                                "02-7777-8888",
+                                "인천 서구 청르아가즈아 777", ShippingInfo.Method.TACKBAE))
+                        .build()
+        );
+        repository.flush();
+
+//        em.persist(member);
+//        em.persist(
+//                new Member.Required("오푼젤", "abcdef@ghi.com", "010-2222-3333", "abcd!@#$")
+//                        .shippingInfo(new ShippingInfo("뚱띠기",
+//                                "02-7777-8888",
+//                                "인천 서구 청르아가즈아 777", ShippingInfo.Method.TACKBAE))
+//                        .build()
+//        );
+//        em.flush();
     }
 }
