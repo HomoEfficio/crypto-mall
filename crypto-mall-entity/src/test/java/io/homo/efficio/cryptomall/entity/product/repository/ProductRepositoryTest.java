@@ -49,5 +49,6 @@ public class ProductRepositoryTest {
         Product product = repository.findByName("라텍스 밴드 중급형");
 
         assertThat(product.getName()).isEqualTo("라텍스 밴드 중급형");
+        assertThat(product.getCategory().getName()).isEqualTo("헬스용품");
     }
 }
