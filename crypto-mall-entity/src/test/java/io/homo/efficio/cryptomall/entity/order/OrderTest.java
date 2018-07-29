@@ -39,7 +39,7 @@ public class OrderTest {
                 new ShippingInfo("지삭렬", "010-8888-9999","인천 서구 크리스탈로 888, 999-3333", ShippingInfo.Method.TACKBAE);
 
         Member orderer = new Member.Required(
-                "아오린", "abcd!@#$", "010-1111-3333"
+                "아오린", "qwer@zxc.com", "abcd!@#$", "010-1111-3333"
         ).id(1L).build();
 
         this.order = new Order(orderer, orderItems, shippingInfo);
@@ -54,7 +54,7 @@ public class OrderTest {
     public void 주문가격계산_주문항목없는주문_throws_NullPointerException() {
         Order order = new Order(
                 new Member.Required(
-                        "아오린", "abcd!@#$", "010-1111-3333"
+                        "아오린", "qwer@zxc.com", "abcd!@#$", "010-1111-3333"
                 ).id(1L).build(),
                 null,
                 new ShippingInfo("탁재운", "010-3333-1111",
@@ -249,7 +249,7 @@ public class OrderTest {
     public void 주문생성시_주문아이템이_null() {
         Order order = new Order(
                 new Member.Required(
-                        "아오린", "abcd!@#$", "010-1111-3333"
+                        "아오린", "qwer@zxc.com", "abcd!@#$", "010-1111-3333"
                 ).id(1L).build(),
                 null,
                 new ShippingInfo("탁재운", "010-3333-1111",
@@ -261,7 +261,7 @@ public class OrderTest {
     public void 주문생성시_배송정보가_null() {
         Order order = new Order(
                 new Member.Required(
-                        "아오린", "abcd!@#$", "010-1111-3333"
+                        "아오린", "qwer@zxc.com", "abcd!@#$", "010-1111-3333"
                 ).id(1L).build(),
                 Arrays.asList(
                         new OrderItem(new Product(1L, "IOTA T-shirt type A", 20.00d), 3),

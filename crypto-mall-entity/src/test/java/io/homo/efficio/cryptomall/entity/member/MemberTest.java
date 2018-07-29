@@ -20,7 +20,7 @@ public class MemberTest {
 
     @Test
     public void 멤버생성_with_배송정보() {
-        Member member = new Member.Required("김삼랑", "abcd!@#$", "010-2222-3333")
+        Member member = new Member.Required("김삼랑", "zcxv@qwer.com", "abcd!@#$", "010-2222-3333")
                 .id(1L)
                 .shippingInfo(new ShippingInfo("김삼랑",
                         "02-7777-8888",
@@ -34,7 +34,7 @@ public class MemberTest {
 
     @Test
     public void 멤버생성_with_배송정보_비활성_우량() {
-        Member member = new Member.Required("김삼랑", "abcd!@#$", "010-2222-3333")
+        Member member = new Member.Required("김삼랑", "zcxv@qwer.com", "abcd!@#$", "010-2222-3333")
                 .id(1L)
                 .shippingInfo(new ShippingInfo("김삼랑",
                         "02-7777-8888",
@@ -51,7 +51,7 @@ public class MemberTest {
     @Test
     public void 멤버_이름변경() {
         Member member = new Member
-                .Required("김삼랑", "abcd!@#$", "010-2222-3333")
+                .Required("김삼랑", "zcxv@qwer.com", "abcd!@#$", "010-2222-3333")
                 .id(1L)
                 .build();
 
@@ -63,7 +63,7 @@ public class MemberTest {
     @Test
     public void 멤버_배송정보변경() {
         Member member = new Member
-                .Required("김삼랑", "abcd!@#$", "010-2222-3333")
+                .Required("김삼랑", "zcxv@qwer.com", "abcd!@#$", "010-2222-3333")
                 .id(1L)
                 .shippingInfo(
                         new ShippingInfo(
@@ -90,7 +90,7 @@ public class MemberTest {
     @Test
     public void 멤버_전화번호변경() {
         Member member = new Member
-                .Required("김삼랑", "abcd!@#$", "010-2222-3333")
+                .Required("김삼랑", "zcxv@qwer.com", "abcd!@#$", "010-2222-3333")
                 .id(1L)
                 .build();
 
@@ -102,7 +102,7 @@ public class MemberTest {
     @Test
     public void 비활성멤버_상태변경() {
         Member member = new Member
-                .Required("김삼랑", "abcd!@#$", "010-2222-3333")
+                .Required("김삼랑", "zcxv@qwer.com", "abcd!@#$", "010-2222-3333")
                 .id(1L)
                 .status(Member.Status.INACTIVE)
                 .build();
@@ -115,7 +115,7 @@ public class MemberTest {
     @Test
     public void 멤버_등급변경() {
         Member member = new Member
-                .Required("김삼랑", "abcd!@#$", "010-2222-3333")
+                .Required("김삼랑", "zcxv@qwer.com", "abcd!@#$", "010-2222-3333")
                 .id(1L)
                 .grade(Member.Grade.NORMAL)
                 .build();
@@ -128,7 +128,7 @@ public class MemberTest {
     @Test(expected = IllegalMemberInfoChangeException.class)
     public void 비활성멤버_등급변경() {
         Member member = new Member
-                .Required("김삼랑", "abcd!@#$", "010-2222-3333")
+                .Required("김삼랑", "zcxv@qwer.com", "abcd!@#$", "010-2222-3333")
                 .id(1L)
                 .status(Member.Status.INACTIVE)
                 .grade(Member.Grade.NORMAL)
@@ -142,7 +142,7 @@ public class MemberTest {
     @Test(expected = IllegalMemberInfoChangeException.class)
     public void 비활성멤버_배송정보변경() {
         Member member = new Member
-                .Required("김삼랑", "abcd!@#$", "010-2222-3333")
+                .Required("김삼랑", "zcxv@qwer.com", "abcd!@#$", "010-2222-3333")
                 .id(1L)
                 .status(Member.Status.INACTIVE)
                 .shippingInfo(
@@ -170,7 +170,7 @@ public class MemberTest {
     @Test(expected = IllegalMemberInfoChangeException.class)
     public void 배송정보이름이회원이름과_다른경우_배송정보로_회원정보변경시_예외() {
         Member member = new Member
-                .Required("김삼랑", "abcd!@#$", "010-2222-3333")
+                .Required("김삼랑", "zcxv@qwer.com", "abcd!@#$", "010-2222-3333")
                 .id(1L)
                 .status(Member.Status.INACTIVE)
                 .shippingInfo(
@@ -198,7 +198,7 @@ public class MemberTest {
     @Test
     public void 배송정보이름이회원이름과_같을경우_배송정보로_회원정보변경() {
         Member member = new Member
-                .Required("김삼랑", "abcd!@#$", "010-2222-3333")
+                .Required("김삼랑", "zcxv@qwer.com", "abcd!@#$", "010-2222-3333")
                 .id(1L)
                 .status(Member.Status.ACTIVE)
                 .shippingInfo(
@@ -226,7 +226,7 @@ public class MemberTest {
     @Test(expected = IllegalMemberInfoChangeException.class)
     public void 배송정보이름이_비활성회원이름과_같을경우_배송정보로_회원정보변경시_예외() {
         Member member = new Member
-                .Required("김삼랑", "abcd!@#$", "010-2222-3333")
+                .Required("김삼랑", "zcxv@qwer.com", "abcd!@#$", "010-2222-3333")
                 .id(1L)
                 .status(Member.Status.INACTIVE)
                 .shippingInfo(
@@ -253,7 +253,7 @@ public class MemberTest {
 
     @Test
     public void 장바구니에담긴상품을_주문상품으로변경() {
-        Member member = new Member.Required("김삼랑", "abcd!@#$", "010-2222-3333")
+        Member member = new Member.Required("김삼랑", "zcxv@qwer.com", "abcd!@#$", "010-2222-3333")
                 .id(1L)
                 .shippingInfo(new ShippingInfo("김삼랑",
                         "02-7777-8888",
@@ -278,6 +278,7 @@ public class MemberTest {
     public void 이름이_null_인_멤버생성_예외() {
         new Member.Required(
                 null,
+                "zcxv@qwer.com",
                 "1234!@#$",
                 "010-8888-9999")
                 .id(1L)
@@ -288,6 +289,7 @@ public class MemberTest {
     public void 비밀번호_null_인_멤버생성_예외() {
         new Member.Required(
                 "EOS",
+                "zcxv@qwer.com",
                 null,
                 "010-8888-9999")
                 .id(1L)
@@ -298,6 +300,7 @@ public class MemberTest {
     public void 전화번호_null_인_멤버생성_예외() {
         new Member.Required(
                 "EOS",
+                "zcxv@qwer.com",
                 "3456#$$",
                 null)
                 .id(1L)

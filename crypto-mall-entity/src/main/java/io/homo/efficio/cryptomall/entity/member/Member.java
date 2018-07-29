@@ -25,9 +25,11 @@ public class Member {
 
     private String name;
 
-    private String password;
+    private String email;
 
     private String phoneNumber;
+
+    private String password;
 
     @Embedded
     private ShippingInfo shippingInfo;
@@ -50,6 +52,7 @@ public class Member {
 
         private Long id;
         private String name;
+        private String email;
         private String phoneNumber;
         private String password;
 
@@ -58,11 +61,13 @@ public class Member {
         private Grade grade = Grade.NORMAL;
 
         public Required(@NonNull String name,
-                        @NonNull String password,
-                        @NonNull String phoneNumber) {
+                        @NonNull String email,
+                        @NonNull String phoneNumber,
+                        @NonNull String password) {
             this.name = name;
-            this.password = password;
+            this.email = email;
             this.phoneNumber = phoneNumber;
+            this.password = password;
         }
 
         public Required id(Long id) {
@@ -92,8 +97,9 @@ public class Member {
 
     private Member(Required required) {
         this.name = required.name;
-        this.password = required.password;
+        this.email = required.email;
         this.phoneNumber = required.phoneNumber;
+        this.password = required.password;
 
         this.id = required.id;
         this.shippingInfo = required.shippingInfo;
