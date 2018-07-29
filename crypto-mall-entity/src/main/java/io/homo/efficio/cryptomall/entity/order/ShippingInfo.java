@@ -1,6 +1,7 @@
 package io.homo.efficio.cryptomall.entity.order;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
@@ -11,6 +12,7 @@ import javax.persistence.Enumerated;
  * Created on 2018-07-22.
  */
 @Embeddable
+@NoArgsConstructor
 @Getter
 public class ShippingInfo {
 
