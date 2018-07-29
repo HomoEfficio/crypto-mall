@@ -4,6 +4,10 @@ import io.homo.efficio.cryptomall.entity.order.OrderItem;
 import io.homo.efficio.cryptomall.entity.order.exception.OrderItemNotFoundException;
 import lombok.Getter;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +16,8 @@ import java.util.List;
  * @author homo.efficio@gmail.com
  * Created on 2018-07-26.
  */
+@Entity
+@Table(name = "CART")
 @Getter
 public class Cart {
 
