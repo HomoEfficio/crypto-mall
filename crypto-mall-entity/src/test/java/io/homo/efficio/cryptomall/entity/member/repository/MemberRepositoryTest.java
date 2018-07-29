@@ -7,6 +7,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.junit.Assert.fail;
+
 /**
  * @author homo.efficio@gmail.com
  * Created on 2018-07-29.
@@ -18,6 +20,14 @@ public class MemberRepositoryTest {
     @Autowired
     private TestEntityManager em;
 
+    @Autowired
+    private MemberRepository repository;
+
     @Test
     public void jpaTestContextLoads() {}
+
+    @Test
+    public void whenFindByEmail__thenReturnMember() {
+        fail();
+    }
 }
