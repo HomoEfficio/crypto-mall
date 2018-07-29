@@ -29,6 +29,7 @@ public class Member {
 
     private String phoneNumber;
 
+    @Embedded
     private ShippingInfo shippingInfo;
 
     private Status status;

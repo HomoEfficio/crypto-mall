@@ -2,10 +2,13 @@ package io.homo.efficio.cryptomall.entity.order;
 
 import lombok.Getter;
 
+import javax.persistence.Embeddable;
+
 /**
  * @author homo.efficio@gmail.com
  * Created on 2018-07-22.
  */
+@Embeddable
 @Getter
 public class ShippingInfo {
 
