@@ -36,6 +36,12 @@ public class Product {
         this.price = price;
     }
 
+    public Product(@NonNull String name,
+                   double price) {
+        this.name = name;
+        this.price = price;
+    }
+
     public Product(Long id,
                    @NonNull String name,
                    double price,

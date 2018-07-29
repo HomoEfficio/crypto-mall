@@ -1,8 +1,11 @@
 package io.homo.efficio.cryptomall.entity.member.repository;
 
+import io.homo.efficio.cryptomall.entity.member.Cart;
 import io.homo.efficio.cryptomall.entity.member.Member;
 import io.homo.efficio.cryptomall.entity.member.MemberRepository;
+import io.homo.efficio.cryptomall.entity.order.OrderItem;
 import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
+import io.homo.efficio.cryptomall.entity.product.Product;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +31,10 @@ public class MemberRepositoryTest {
     private TestEntityManager em;
 
     @Autowired
-    private MemberRepository repository;
+    private MemberRepository memberRepository;
+
+    @Autowired
+    private CartRepository cartRepository;
 
     private Member member;
 
@@ -50,7 +56,7 @@ public class MemberRepositoryTest {
         em.persist(member);
         em.flush();
 
-        Member persistedMember = repository.findByEmail("abcdef@ghi.com");
+        Member persistedMember = memberRepository.findByEmail("abcdef@ghi.com");
 
         assertThat(persistedMember.getName()).isEqualTo("김삼랑");
         assertThat(persistedMember.getShippingInfo().getMethod()).isEqualTo(ShippingInfo.Method.TACKBAE);
@@ -58,9 +64,9 @@ public class MemberRepositoryTest {
 
     @Test
     public void whenSave__thenReturnMember() {
-        final Member persistedMember = repository.save(member);
+        final Member persistedMember = memberRepository.save(member);
 
-        final Optional<Member> foundMember = repository.findById(persistedMember.getId());
+        final Optional<Member> foundMember = memberRepository.findById(persistedMember.getId());
         assertThat(foundMember.get().getShippingInfo().getAddress())
                 .isEqualTo("서울 광진구 가즈아차산 777");
         assertThat(foundMember.get().getEmail())
@@ -69,15 +75,15 @@ public class MemberRepositoryTest {
 
     @Test(expected = RuntimeException.class)
     public void whenSaveWithDupEmail__thenThrowException() {
-        final Member persistedMember1 = repository.save(member);
-        final Member persistedMember2 = repository.save(
+        final Member persistedMember1 = memberRepository.save(member);
+        final Member persistedMember2 = memberRepository.save(
                 new Member.Required("오푼젤", "abcdef@ghi.com", "010-2222-3333", "abcd!@#$")
                         .shippingInfo(new ShippingInfo("뚱띠기",
                                 "02-7777-8888",
                                 "인천 서구 청르아가즈아 777", ShippingInfo.Method.TACKBAE))
                         .build()
         );
-        repository.flush();
+        memberRepository.flush();
 
 //        em.persist(member);
 //        em.persist(
@@ -88,5 +94,21 @@ public class MemberRepositoryTest {
 //                        .build()
 //        );
 //        em.flush();
+    }
+
+    @Test
+    public void whenSaveCart__thenReturnCartWithOwner() {
+        final Member persistedMember = memberRepository.save(member);
+        final Cart cart = new Cart(persistedMember);
+        final Cart persistedCart = cartRepository.save(cart);
+        final Product product1 = new Product("끝내주는 상품", 17.00d);
+        final OrderItem orderItem1 = new OrderItem(product1, 3);
+        memberRepository.flush();
+
+        persistedCart.addItem(orderItem1);
+        cartRepository.flush();
+
+        assertThat(persistedCart.getItems().size()).isEqualTo(1);
+        assertThat(persistedCart.getOwner().getName()).isEqualTo("김삼랑");
     }
 }
