@@ -5,7 +5,6 @@ import io.homo.efficio.cryptomall.entity.order.exception.OrderItemNotFoundExcept
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "CART")
 @Getter
-public class Cart implements Serializable {
+public class Cart {
 
     @Id
     @GeneratedValue
