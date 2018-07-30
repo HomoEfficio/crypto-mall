@@ -17,6 +17,8 @@ import java.util.Objects;
 @Getter
 public class Order {
 
+    // TODO: Apply JPA Annotations on Order
+
     private Member orderer;
 
     private List<OrderItem> orderItems;
