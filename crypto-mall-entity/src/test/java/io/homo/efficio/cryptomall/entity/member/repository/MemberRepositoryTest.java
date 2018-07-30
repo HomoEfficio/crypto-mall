@@ -111,20 +111,27 @@ public class MemberRepositoryTest {
         final Cart persistedCart = cartRepository.save(cart);
         final Product product1 = new Product("끝내주는 상품", 17.00d);
         final Product persistedProduct1 = productRepository.save(product1);
+        final Product product2 = new Product("잘나가는 상품", 7.00d);
+        final Product persistedProduct2 = productRepository.save(product2);
         productRepository.flush();
         final OrderItem orderItem1 = new OrderItem(persistedProduct1, 3);
+        final OrderItem orderItem2 = new OrderItem(persistedProduct2, 2);
         final OrderItem persistedOrderItem1 = orderItemRepository.save(orderItem1);
+        final OrderItem persistedOrderItem2 = orderItemRepository.save(orderItem2);
         orderItemRepository.flush();
         memberRepository.flush();
 
         persistedCart.addItem(persistedOrderItem1);
+        persistedCart.addItem(persistedOrderItem2);
         cartRepository.flush();
 
-        assertThat(persistedCart.getItems().size()).isEqualTo(1);
+        assertThat(persistedCart.getItems().size()).isEqualTo(2);
         assertThat(persistedCart.getOwner().getName()).isEqualTo("김삼랑");
         assertThat(persistedCart.getItems().get(0).getProduct().getName())
                 .isEqualTo("끝내주는 상품");
         assertThat(persistedCart.getItems().get(0).getQuantity())
                 .isEqualTo(3);
+        assertThat(persistedCart.getItems().get(1).getAmounts())
+                .isEqualTo(14);
     }
 }
