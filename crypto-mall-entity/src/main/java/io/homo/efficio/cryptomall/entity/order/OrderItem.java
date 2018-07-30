@@ -3,17 +3,22 @@ package io.homo.efficio.cryptomall.entity.order;
 import io.homo.efficio.cryptomall.entity.product.Product;
 import lombok.Getter;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 /**
  * @author homo.efficio@gmail.com
  * Created on 2018-07-22.
  */
-@Embeddable
+@Entity
+@Table(name = "ORDER_ITEM")
 @Getter
 public class OrderItem {
 
-    // TODO: ID 클래스를 이용한 매핑?
+    @Id
+    @GeneratedValue
+    @Column(name = "order_item_id")
+    private Long id;
+
     private Product product;
 
     private int quantity;
