@@ -5,7 +5,9 @@ import io.homo.efficio.cryptomall.entity.member.Member;
 import io.homo.efficio.cryptomall.entity.member.MemberRepository;
 import io.homo.efficio.cryptomall.entity.order.OrderItem;
 import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
+import io.homo.efficio.cryptomall.entity.order.repository.OrderItemRepository;
 import io.homo.efficio.cryptomall.entity.product.Product;
+import io.homo.efficio.cryptomall.entity.product.repository.ProductRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +37,12 @@ public class MemberRepositoryTest {
 
     @Autowired
     private CartRepository cartRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     private Member member;
 
@@ -97,18 +105,26 @@ public class MemberRepositoryTest {
     }
 
     @Test
-    public void whenSaveCart__thenReturnCartWithOwner() {
+    public void whenSaveCart__thenReturnCartWithOwnerAndItems() {
         final Member persistedMember = memberRepository.save(member);
         final Cart cart = new Cart(persistedMember);
         final Cart persistedCart = cartRepository.save(cart);
         final Product product1 = new Product("끝내주는 상품", 17.00d);
-        final OrderItem orderItem1 = new OrderItem(product1, 3);
+        final Product persistedProduct1 = productRepository.save(product1);
+        productRepository.flush();
+        final OrderItem orderItem1 = new OrderItem(persistedProduct1, 3);
+        final OrderItem persistedOrderItem1 = orderItemRepository.save(orderItem1);
+        orderItemRepository.flush();
         memberRepository.flush();
 
-        persistedCart.addItem(orderItem1);
+        persistedCart.addItem(persistedOrderItem1);
         cartRepository.flush();
 
         assertThat(persistedCart.getItems().size()).isEqualTo(1);
         assertThat(persistedCart.getOwner().getName()).isEqualTo("김삼랑");
+        assertThat(persistedCart.getItems().get(0).getProduct().getName())
+                .isEqualTo("끝내주는 상품");
+        assertThat(persistedCart.getItems().get(0).getQuantity())
+                .isEqualTo(3);
     }
 }
