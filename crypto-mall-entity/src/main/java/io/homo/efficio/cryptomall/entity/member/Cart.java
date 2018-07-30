@@ -20,12 +20,17 @@ import java.util.List;
 public class Cart implements Serializable {
 
     @Id
+    @GeneratedValue
+    @Column(name = "cart_id")
+    private Long id;
+
     @OneToOne
+    @JoinColumn(name = "owner_id")
     private Member owner;
 
     @ElementCollection
     @CollectionTable(name = "CART_ITEMS",
-                     joinColumns = { @JoinColumn(name = "owner") })
+                     joinColumns = { @JoinColumn(name = "cart_id") })
     private List<OrderItem> items = new ArrayList<>();
 
     public Cart(Member owner) {
