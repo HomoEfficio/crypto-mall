@@ -20,6 +20,9 @@ import java.util.Objects;
 @Getter
 public class Order {
 
+    @Id
+    @GeneratedValue
+    @Column(name = "order_id")
     private Long id;
 
     private Member orderer;
