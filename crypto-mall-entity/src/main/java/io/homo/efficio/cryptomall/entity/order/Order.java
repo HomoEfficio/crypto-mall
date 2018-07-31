@@ -25,6 +25,7 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
+    @OneToOne
     private Member orderer;
 
     @OneToMany
