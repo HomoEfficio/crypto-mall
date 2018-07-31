@@ -7,6 +7,7 @@ import io.homo.efficio.cryptomall.entity.order.exception.IllegalShippingInfoChan
 import lombok.Getter;
 import lombok.NonNull;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ import java.util.Objects;
 @Getter
 public class Order {
 
-    // TODO: Apply JPA Annotations on Order
+    private Long id;
 
     private Member orderer;
 
