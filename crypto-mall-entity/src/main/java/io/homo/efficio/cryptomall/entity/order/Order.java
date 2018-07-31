@@ -25,7 +25,8 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "orderer_id")
     private Member orderer;
 
     @OneToMany(mappedBy = "order")  // mappedBy = "order"가 없으면 FK가 생기지 않고 Junction Table이 생긴다.
