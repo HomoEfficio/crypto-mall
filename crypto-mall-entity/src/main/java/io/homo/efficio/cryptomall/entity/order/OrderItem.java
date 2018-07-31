@@ -2,6 +2,7 @@ package io.homo.efficio.cryptomall.entity.order;
 
 import io.homo.efficio.cryptomall.entity.product.Product;
 import lombok.Getter;
+import lombok.NonNull;
 
 import javax.persistence.*;
 
@@ -27,9 +28,21 @@ public class OrderItem {
 
     private double amounts;
 
-    public OrderItem(Product product, int quantity) {
+    @ManyToOne
+    @JoinColumn(name = "order_id")  // @JoinColumn은 FK가 설정될 컬럼의 이름을 지어줄 뿐이며,
+                                      // @JoinColumn이 없더라도 @OneToMany 쪽에서 mappedBy만 지정해주면 FK가 설정된다.
+    private Order order;
+
+    public OrderItem(@NonNull Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
         this.amounts = this.product.getPrice() * this.quantity;
+    }
+
+    public OrderItem(@NonNull Product product, int quantity, @NonNull Order order) {
+        this.product = product;
+        this.quantity = quantity;
+        this.amounts = this.product.getPrice() * this.quantity;
+        this.order = order;
     }
 }

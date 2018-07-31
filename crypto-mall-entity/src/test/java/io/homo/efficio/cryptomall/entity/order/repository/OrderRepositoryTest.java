@@ -16,8 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.fail;
-
 /**
  * @author homo.efficio@gmail.com
  * created on 2018-07-31
@@ -44,6 +42,21 @@ public class OrderRepositoryTest {
     @Test
     public void givenUnidirectionalOneToOne__whenAdd3OrderItems__then3MoreInsertsIntoJunctionTableHappen() {
 
+        add3OrderItemsToOrder();
+
+        // No assertion, execute only with @OneToMany applied on orderItems of Order and just see the log to verify,
+    }
+
+    @Test
+    public void givenBidirectionalOneToManyManyToOne__whenAdd3OrderItems__thenNoJunctionTableCreated() {
+
+        add3OrderItemsToOrder();
+
+        // No assertion, execute with @OneToMany applied on orderItems of Order and @ManyToOne applied on order of OrderItem
+        // and just see the log to verify
+    }
+
+    private void add3OrderItemsToOrder() {
         Member orderer = new Member.Required(
                 "아오린", "qwer@zxc.com", "abcd!@#$", "010-1111-3333"
         ).build();
@@ -54,17 +67,23 @@ public class OrderRepositoryTest {
         final ShippingInfo shippingInfo =
                 new ShippingInfo("지삭렬", "010-8888-9999","인천 서구 크리스탈로 888, 999-3333", ShippingInfo.Method.TACKBAE);
         Order order = new Order(persistedOrderer, persistedOrderItems, shippingInfo);
-
+        Order persistedOrder = orderRepository.save(order);
 
         final Product persistedProduct01 = productRepository.save(new Product("IOTA T-shirt type A", 20.00d));
         final Product persistedProduct02 = productRepository.save(new Product("IOTA T-shirt type B", 20.00d));
         final Product persistedProduct03 = productRepository.save(new Product("EOS Hood type C", 50.00d));
         productRepository.flush();
-        order.addOrderItem(orderItemRepository.save(new OrderItem(persistedProduct01, 3)));
-        order.addOrderItem(orderItemRepository.save(new OrderItem(persistedProduct02, 5)));
-        order.addOrderItem(orderItemRepository.save(new OrderItem(persistedProduct03, 7)));
-        orderItemRepository.flush();
-        orderRepository.save(order);
+        order.addOrderItem(orderItemRepository.save(new OrderItem(persistedProduct01, 3, persistedOrder)));
+        order.addOrderItem(orderItemRepository.save(new OrderItem(persistedProduct02, 5, persistedOrder)));
+        order.addOrderItem(orderItemRepository.save(new OrderItem(persistedProduct03, 7, persistedOrder)));
+
         orderRepository.flush();
+        orderItemRepository.flush();
+
+        for (Order order1 : orderRepository.findAll()) {
+            System.out.println("method: " + order1.getShippingInfo().getMethod());
+            System.out.println("status: " + order1.getStatus());
+            System.out.println("-------------------");
+        }
     }
 }

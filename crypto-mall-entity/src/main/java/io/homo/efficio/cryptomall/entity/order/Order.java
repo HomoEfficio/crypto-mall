@@ -28,11 +28,13 @@ public class Order {
     @OneToOne
     private Member orderer;
 
-    @OneToMany
+    @OneToMany(mappedBy = "order")  // mappedBy = "order"가 없으면 FK가 생기지 않고 Junction Table이 생긴다.
     private List<OrderItem> orderItems;
 
+    @Embedded
     private ShippingInfo shippingInfo;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     public Order(@NonNull Member orderer,
