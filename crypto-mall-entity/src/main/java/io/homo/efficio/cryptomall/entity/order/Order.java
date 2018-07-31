@@ -27,6 +27,7 @@ public class Order {
 
     private Member orderer;
 
+    @OneToMany
     private List<OrderItem> orderItems;
 
     private ShippingInfo shippingInfo;
