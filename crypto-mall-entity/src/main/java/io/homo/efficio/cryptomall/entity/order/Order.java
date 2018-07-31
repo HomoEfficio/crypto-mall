@@ -15,6 +15,8 @@ import java.util.Objects;
  * @author homo.efficio@gmail.com
  * Created on 2018-07-22.
  */
+@Entity
+@Table(name = "ORDERS")
 @Getter
 public class Order {
 
