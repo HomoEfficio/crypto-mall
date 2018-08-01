@@ -17,8 +17,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * @author homo.efficio@gmail.com
@@ -121,5 +123,15 @@ public class OrderRepositoryTest {
                         .orElseThrow(() -> new OrderNotFoundException())
                         .getOrderItems().get(2).getAmounts())
                 .isEqualTo(350d);
+    }
+
+    @Test
+    public void whenFindByMember__thenReturnOrderWithThatMember() {
+
+        Optional<Order> foundOrder = orderRepository.findByOrderer(persistedOrderer);
+
+        assertThat(foundOrder.orElseThrow(() -> new OrderNotFoundException())
+                        .getOrderer().getName())
+                .isEqualTo(persistedOrderer.getName());
     }
 }
