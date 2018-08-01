@@ -134,4 +134,14 @@ public class OrderRepositoryTest {
                         .getOrderer().getName())
                 .isEqualTo(persistedOrderer.getName());
     }
+
+    @Test
+    public void whenFindByStatus__thenReturnOrderWithThatStatus() {
+
+        Optional<Order> foundOrder = orderRepository.findByStatus(Order.Status.PAYMENT_WAITING);
+
+        assertThat(foundOrder.orElseThrow(() -> new OrderNotFoundException())
+                        .getStatus())
+                .isEqualTo(Order.Status.PAYMENT_WAITING);
+    }
 }
