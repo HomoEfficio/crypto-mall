@@ -126,7 +126,7 @@ public class OrderRepositoryTest {
     }
 
     @Test
-    public void whenFindByMember__thenReturnOrderWithThatMember() {
+    public void whenFindByOrderer__thenReturnOrderWithThatOrderer() {
 
         Optional<Order> foundOrder = orderRepository.findByOrderer(persistedOrderer);
 
