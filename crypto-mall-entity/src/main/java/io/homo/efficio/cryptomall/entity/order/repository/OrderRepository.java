@@ -13,4 +13,6 @@ import java.util.Optional;
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     Optional<Order> findByOrderer(Member orderer);
+
+    Optional<Order> findByStatus(Order.Status status);
 }
