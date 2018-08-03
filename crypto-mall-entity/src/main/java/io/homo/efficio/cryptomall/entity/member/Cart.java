@@ -1,5 +1,6 @@
 package io.homo.efficio.cryptomall.entity.member;
 
+import io.homo.efficio.cryptomall.entity.common.BaseEntity;
 import io.homo.efficio.cryptomall.entity.order.OrderItem;
 import io.homo.efficio.cryptomall.entity.order.exception.OrderItemNotFoundException;
 import lombok.Getter;
@@ -16,7 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "CART")
 @Getter
-public class Cart {
+public class Cart extends BaseEntity {
 
     @Id
     @GeneratedValue

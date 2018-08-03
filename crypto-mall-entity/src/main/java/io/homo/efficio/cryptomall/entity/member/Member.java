@@ -1,5 +1,6 @@
 package io.homo.efficio.cryptomall.entity.member;
 
+import io.homo.efficio.cryptomall.entity.common.BaseEntity;
 import io.homo.efficio.cryptomall.entity.member.exception.IllegalMemberInfoChangeException;
 import io.homo.efficio.cryptomall.entity.order.Order;
 import io.homo.efficio.cryptomall.entity.order.OrderItem;
@@ -17,7 +18,7 @@ import javax.persistence.*;
 @Table(name = "MEMBER",
        indexes = { @Index(name = "IDX_MEMBER_EMAIL", columnList = "email", unique = true) })
 @Getter
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue

@@ -1,5 +1,6 @@
 package io.homo.efficio.cryptomall.entity.category;
 
+import io.homo.efficio.cryptomall.entity.common.BaseEntity;
 import io.homo.efficio.cryptomall.entity.product.Product;
 import lombok.Getter;
 import lombok.NonNull;
@@ -15,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "CATEGORY")
 @Getter
-public class Category {
+public class Category extends BaseEntity {
 
     @Id
     @GeneratedValue

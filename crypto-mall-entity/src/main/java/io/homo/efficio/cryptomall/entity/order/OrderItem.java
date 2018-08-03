@@ -1,5 +1,6 @@
 package io.homo.efficio.cryptomall.entity.order;
 
+import io.homo.efficio.cryptomall.entity.common.BaseEntity;
 import io.homo.efficio.cryptomall.entity.product.Product;
 import lombok.Getter;
 import lombok.NonNull;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ORDER_ITEM")
 @Getter
-public class OrderItem {
+public class OrderItem extends BaseEntity {
 
     @Id
     @GeneratedValue

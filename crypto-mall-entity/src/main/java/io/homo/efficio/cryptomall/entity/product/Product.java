@@ -1,6 +1,7 @@
 package io.homo.efficio.cryptomall.entity.product;
 
 import io.homo.efficio.cryptomall.entity.category.Category;
+import io.homo.efficio.cryptomall.entity.common.BaseEntity;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "PRODUCT")
 @Getter
-public class Product {
+public class Product extends BaseEntity {
 
     @Id
     @GeneratedValue

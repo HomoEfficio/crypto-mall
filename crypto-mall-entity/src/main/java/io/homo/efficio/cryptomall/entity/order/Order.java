@@ -1,5 +1,6 @@
 package io.homo.efficio.cryptomall.entity.order;
 
+import io.homo.efficio.cryptomall.entity.common.BaseEntity;
 import io.homo.efficio.cryptomall.entity.member.Member;
 import io.homo.efficio.cryptomall.entity.order.exception.IllegalCancellationException;
 import io.homo.efficio.cryptomall.entity.order.exception.IllegalOrderItemChangeException;
@@ -18,7 +19,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "ORDERS")
 @Getter
-public class Order {
+public class Order extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -29,6 +30,7 @@ public class Order {
     @JoinColumn(name = "orderer_id")
     private Member orderer;
 
+    // TODO: Eager, Lazy Test
     @OneToMany(mappedBy = "order")  // mappedBy = "order"가 없으면 FK가 생기지 않고 Junction Table이 생긴다.
     private List<OrderItem> orderItems;
 
