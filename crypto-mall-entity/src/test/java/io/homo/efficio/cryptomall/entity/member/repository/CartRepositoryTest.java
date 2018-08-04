@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -37,6 +38,7 @@ public class CartRepositoryTest {
     private OrderItemRepository orderItemRepository;
 
     @Test
+    @Transactional
     public void whenSaveCart__thenReturnCartWithOwnerAndItems() {
         Member member = new Member.Required("김삼랑", "abcdef@ghi.com", "010-2222-3333", "abcd!@#$")
                 .shippingInfo(new ShippingInfo("김삼랑",
@@ -50,17 +52,16 @@ public class CartRepositoryTest {
         final Product persistedProduct1 = productRepository.save(product1);
         final Product product2 = new Product("잘나가는 상품", 7.00d);
         final Product persistedProduct2 = productRepository.save(product2);
-        productRepository.flush();
+
         final OrderItem orderItem1 = new OrderItem(persistedProduct1, 3);
         final OrderItem orderItem2 = new OrderItem(persistedProduct2, 2);
         final OrderItem persistedOrderItem1 = orderItemRepository.save(orderItem1);
         final OrderItem persistedOrderItem2 = orderItemRepository.save(orderItem2);
-        orderItemRepository.flush();
-        memberRepository.flush();
+
 
         persistedCart.addItem(persistedOrderItem1);
         persistedCart.addItem(persistedOrderItem2);
-        cartRepository.flush();
+
 
         assertThat(persistedCart.getItems().size()).isEqualTo(2);
         assertThat(persistedCart.getOwner().getName()).isEqualTo("김삼랑");
