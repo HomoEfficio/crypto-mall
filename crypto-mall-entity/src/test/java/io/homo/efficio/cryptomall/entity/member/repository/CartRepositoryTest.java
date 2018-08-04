@@ -38,7 +38,7 @@ public class CartRepositoryTest {
     private OrderItemRepository orderItemRepository;
 
     @Test
-    @Transactional
+//    @Transactional  // @Transactional applied on test method does not invoke flush()
     public void whenSaveCart__thenReturnCartWithOwnerAndItems() {
         Member member = new Member.Required("김삼랑", "abcdef@ghi.com", "010-2222-3333", "abcd!@#$")
                 .shippingInfo(new ShippingInfo("김삼랑",
@@ -58,9 +58,14 @@ public class CartRepositoryTest {
         final OrderItem persistedOrderItem1 = orderItemRepository.save(orderItem1);
         final OrderItem persistedOrderItem2 = orderItemRepository.save(orderItem2);
 
+        // Any one flush invocation flushes all pending changes not only in MemberRepository but also in other Repos.
+        memberRepository.flush();
 
         persistedCart.addItem(persistedOrderItem1);
         persistedCart.addItem(persistedOrderItem2);
+
+        // If this flush is commented out, the cart_items addition above will not be flushed to the DB
+        memberRepository.flush();
 
 
         assertThat(persistedCart.getItems().size()).isEqualTo(2);

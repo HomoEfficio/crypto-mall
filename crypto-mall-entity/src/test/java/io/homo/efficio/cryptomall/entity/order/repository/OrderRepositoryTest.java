@@ -59,7 +59,6 @@ public class OrderRepositoryTest {
                 "아오린", "qwer@zxc.com", "abcd!@#$", "010-1111-3333"
         ).build();
         persistedOrderer = memberRepository.save(orderer);
-        memberRepository.flush();
         List<OrderItem> orderItems = new ArrayList<>();
         persistedOrderItems = orderItemRepository.saveAll(orderItems);
         final ShippingInfo shippingInfo =
@@ -71,9 +70,11 @@ public class OrderRepositoryTest {
         persistedProduct02 = productRepository.save(new Product("IOTA T-shirt type B", 20.00d));
         persistedProduct03 = productRepository.save(new Product("EOS Hood type C", 50.00d));
 
-        productRepository.flush();
-        orderRepository.flush();
-        orderItemRepository.flush();
+//        memberRepository.flush();
+        // Just one invocation of any repository is enough to flush all pending changes to the DB
+//        productRepository.flush();
+//        orderRepository.flush();
+//        orderItemRepository.flush();
     }
 
     @Test
@@ -102,6 +103,7 @@ public class OrderRepositoryTest {
         persistedOrder.addOrderItem(orderItemRepository.save(new OrderItem(persistedProduct02, 5, persistedOrder)));
         persistedOrder.addOrderItem(orderItemRepository.save(new OrderItem(persistedProduct03, 7, persistedOrder)));
 
+        // No need to explicitly invoke flush, because it will be invoked by find***() below
 
         assertThat(orderRepository.findById(persistedOrder.getId())
                         .orElseThrow(() -> new OrderNotFoundException())

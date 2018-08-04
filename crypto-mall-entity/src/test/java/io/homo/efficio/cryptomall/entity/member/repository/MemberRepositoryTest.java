@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -48,7 +49,8 @@ public class MemberRepositoryTest {
     public void whenFindByEmail__thenReturnMember() {
 
         em.persist(member);
-        em.flush();
+
+//        em.flush();  // No need to explicitly invoke flush, because it will be invoked by find***() below
 
         Member persistedMember = memberRepository.findByEmail("abcdef@ghi.com");
 
@@ -60,6 +62,8 @@ public class MemberRepositoryTest {
     public void whenSave__thenReturnMember() {
         final Member persistedMember = memberRepository.save(member);
 
+        // memberRepository.flush();  // No need to explicitly invoke flush, because it will be invoked by find***() below
+
         final Optional<Member> foundMember = memberRepository.findById(persistedMember.getId());
         assertThat(foundMember.get().getShippingInfo().getAddress())
                 .isEqualTo("서울 광진구 가즈아차산 777");
@@ -68,6 +72,7 @@ public class MemberRepositoryTest {
     }
 
     @Test(expected = RuntimeException.class)
+    @Transactional  // @Transactional in Test method does NOT invoke flush()
     public void whenSaveWithDupEmail__thenThrowException() {
         final Member persistedMember1 = memberRepository.save(member);
         final Member persistedMember2 = memberRepository.save(
@@ -77,6 +82,8 @@ public class MemberRepositoryTest {
                                 "인천 서구 청르아가즈아 777", ShippingInfo.Method.TACKBAE))
                         .build()
         );
+        // Need to be explicitly invoked because there is nothing left to invoke flush().
+        // @Transactional applied on test method does not invoke flush()
         memberRepository.flush();
 
 //        em.persist(member);

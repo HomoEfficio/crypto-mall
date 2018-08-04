@@ -34,6 +34,24 @@ public class ProductRepositoryTest {
     }
 
     @Test
+    public void whenPersist__thenReturnProduct() {
+        final Product product = em.persist(
+                new Product(
+                        "어디다쓰 헬스 장갑", 15.00d
+                )
+        );
+    }
+
+    @Test
+    public void whenSave__thenReturnProduct() {
+        final Product product = repository.save(
+                new Product(
+                        "어디다쓰 헬스 장갑", 15.00d
+                )
+        );
+    }
+
+    @Test
     public void whenFindByName__thenReturnProduct() {
         Category category = em.persist(
                 new Category(
@@ -46,7 +64,7 @@ public class ProductRepositoryTest {
                         category
                 )
         );
-        em.flush();
+//        em.flush();  // No need to explicitly invoke flush, because it will be invoked by find***() below
 
         Product product = repository.findByName("라텍스 밴드 중급형");
 
@@ -73,7 +91,7 @@ public class ProductRepositoryTest {
                         category
                 )
         );
-        em.flush();
+//        em.flush();  // No need to explicitly invoke flush, because it will be invoked by find***() below
 
         List<Product> productsByCategory = repository.findByCategory(category);
 
