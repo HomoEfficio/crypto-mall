@@ -10,7 +10,7 @@ spring:
 
 
 logging.level.org.hibernate:
-#  SQL: DEBUG  # show SQL with TimeStamp
+  SQL: DEBUG  # show SQL with TimeStamp
   type.descriptor.sql: TRACE  # show SQL binding values
 #  type: TRACE  # show full action of JPA implementation
 

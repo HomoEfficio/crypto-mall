@@ -61,4 +61,7 @@ public class Product extends BaseEntity {
         this.category = category;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }
