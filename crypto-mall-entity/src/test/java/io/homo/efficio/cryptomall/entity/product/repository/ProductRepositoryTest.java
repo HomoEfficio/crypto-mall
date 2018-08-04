@@ -7,7 +7,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -43,12 +42,21 @@ public class ProductRepositoryTest {
     }
 
     @Test
+//    @Transactional  // @Transactional in Test method does NOT invoke flush() and usually needless
     public void whenSave__thenReturnProduct() {
         final Product product = repository.save(
                 new Product(
                         "어디다쓰 헬스 장갑", 15.00d
                 )
         );
+        product.setName("나이스 헬스 장갑");
+
+        // Must invoke flush() explicitly in test method
+        // See 'Avoid false positives when testing ORM code' in
+        // https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#testcontext-tx-rollback-and-commit-behavior
+        repository.flush();
+
+        assertThat(product.getName()).isEqualTo("나이스 헬스 장갑");
     }
 
     @Test

@@ -70,7 +70,7 @@ public class OrderRepositoryTest {
         persistedProduct02 = productRepository.save(new Product("IOTA T-shirt type B", 20.00d));
         persistedProduct03 = productRepository.save(new Product("EOS Hood type C", 50.00d));
 
-//        memberRepository.flush();
+        memberRepository.flush();
         // Just one invocation of any repository is enough to flush all pending changes to the DB
 //        productRepository.flush();
 //        orderRepository.flush();
