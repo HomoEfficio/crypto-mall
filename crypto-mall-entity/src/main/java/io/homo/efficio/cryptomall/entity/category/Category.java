@@ -29,7 +29,9 @@ public class Category extends BaseEntity {
     private List<Product> products = new ArrayList<>();
 
     public void addProduct(@NonNull Product product) {
-        if (!this.products.contains(product)) {
+        if (this.products.contains(product)) {
+            throw new IllegalArgumentException("The product is already included in this category");
+        } else {
             this.products.add(product);
         }
         if (!this.equals(product.getCategory())) {
