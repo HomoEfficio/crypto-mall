@@ -9,6 +9,7 @@ import io.homo.efficio.cryptomall.entity.product.Product;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -274,5 +275,26 @@ public class OrderTest {
     @Test(expected = NullPointerException.class)
     public void 주문항목에_null_추가() {
         this.order.addOrderItem(null);
+    }
+
+    @Test
+    public void whenAddOrderItemToOrder__thenOrderOfTheAddedOrderItemIsSetToOrder() {
+        //given
+        Order order = new Order(
+                new Member.Required(
+                        "아오린", "qwer@zxc.com", "abcd!@#$", "010-1111-3333"
+                ).id(1L).build(),
+                new ArrayList<>(),
+                new ShippingInfo("탁재운", "010-3333-1111",
+                        "서울 강남구 한강동 가즈아파트 333-333",
+                        ShippingInfo.Method.QUICK_SERVICE));
+
+        // when
+        order.addOrderItem(new OrderItem(new Product(3L, "EOS Hood type C", 50.00d), 7));
+
+        // then
+        final List<OrderItem> orderItems = order.getOrderItems();
+        assertThat(orderItems.get(orderItems.size() - 1).getOrder().getId())
+                .isEqualTo(order.getId());
     }
 }
