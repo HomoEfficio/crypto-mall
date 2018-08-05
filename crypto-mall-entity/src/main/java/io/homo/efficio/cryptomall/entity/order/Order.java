@@ -100,7 +100,12 @@ public class Order extends BaseEntity {
     }
 
     public void addOrderItem(@NonNull OrderItem orderItem) {
-        this.orderItems.add(orderItem);
+        if (!this.orderItems.contains(orderItem)) {
+            this.orderItems.add(orderItem);
+        }
+        if (!this.equals(orderItem.getOrder())) {
+            orderItem.setOrder(this);
+        }
     }
 
     public enum Status {

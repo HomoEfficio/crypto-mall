@@ -46,4 +46,9 @@ public class OrderItem extends BaseEntity {
         this.amounts = this.product.getPrice() * this.quantity;
         this.order = order;
     }
+
+    public void setOrder(@NonNull Order order) {
+        this.order = order;
+        order.addOrderItem(this);
+    }
 }
