@@ -55,8 +55,8 @@ public class CategoryTest {
                 .isEqualTo(category);
     }
 
-    @Test
-    public void whenTheSameProductAddedTwice__thenTheLengthOfTheProductsRemainsTheSame() {
+    @Test(expected = IllegalArgumentException.class)
+    public void whenTheSameProductAddedTwice__thenThrowException() {
         //given
         Category category = new Category(1L, "스포츠");
 
