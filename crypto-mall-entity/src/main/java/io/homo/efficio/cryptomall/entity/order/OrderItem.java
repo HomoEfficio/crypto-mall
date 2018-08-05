@@ -51,4 +51,24 @@ public class OrderItem extends BaseEntity {
         this.order = order;
         order.addOrderItem(this);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OrderItem)) return false;
+
+        OrderItem orderItem = (OrderItem) o;
+
+        if (quantity != orderItem.quantity) return false;
+        if (id != null ? !id.equals(orderItem.id) : orderItem.id != null) return false;
+        return product.equals(orderItem.product);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + product.hashCode();
+        result = 31 * result + quantity;
+        return result;
+    }
 }

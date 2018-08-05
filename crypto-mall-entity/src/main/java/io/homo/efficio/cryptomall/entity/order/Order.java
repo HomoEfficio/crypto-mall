@@ -100,7 +100,9 @@ public class Order extends BaseEntity {
     }
 
     public void addOrderItem(@NonNull OrderItem orderItem) {
-        if (!this.orderItems.contains(orderItem)) {
+        if (this.orderItems.contains(orderItem)) {
+            throw new IllegalArgumentException("The same orderItem is already included in the order");
+        } else {
             this.orderItems.add(orderItem);
         }
         if (!this.equals(orderItem.getOrder())) {
