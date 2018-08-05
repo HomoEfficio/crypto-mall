@@ -4,6 +4,7 @@ import io.homo.efficio.cryptomall.entity.category.Category;
 import io.homo.efficio.cryptomall.entity.category.repository.CategoryRepository;
 import io.homo.efficio.cryptomall.entity.product.Product;
 import io.homo.efficio.cryptomall.entity.product.repository.ProductRepository;
+import io.homo.efficio.cryptomall.entity.util.ConsoleColor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -36,7 +37,7 @@ public class InitRunner implements CommandLineRunner {
 
         productRepository.flush();
 
-        log.warn("### product id: {}", product.getId());
+        log.warn(ConsoleColor.ANSI_YELLOW + "### product id: {}", product.getId());
 
         final Category category = categoryRepository.save(
                 new Category(
@@ -44,6 +45,6 @@ public class InitRunner implements CommandLineRunner {
                 )
         );
 
-        log.warn("### category id: {}", category.getId());
+        log.warn(ConsoleColor.ANSI_PURPLE+ "### category id: {}", category.getId());
     }
 }
