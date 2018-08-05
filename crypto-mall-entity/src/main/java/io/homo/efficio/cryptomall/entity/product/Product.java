@@ -67,7 +67,6 @@ public class Product extends BaseEntity {
 
     public void setCategory(@NonNull Category category) {
         this.category = category;
-        category.addProduct(this);
     }
 
     @Override

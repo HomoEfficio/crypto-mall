@@ -49,7 +49,6 @@ public class OrderItem extends BaseEntity {
 
     public void setOrder(@NonNull Order order) {
         this.order = order;
-        order.addOrderItem(this);
     }
 
     @Override

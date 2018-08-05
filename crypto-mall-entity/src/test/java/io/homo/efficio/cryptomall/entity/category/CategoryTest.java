@@ -18,9 +18,9 @@ public class CategoryTest {
     @Test
     public void 카테고리생성() {
         Category category = new Category(1L, "스포츠");
-        Product 아디닥스운동화1 = new Product(1L, "아디닥스 운동화 Type A", 70.0d);
+        Product product1 = new Product(1L, "아디닥스 운동화 Type A", 70.0d);
 
-        category.addProduct(아디닥스운동화1);
+        category.addProduct(product1);
 
         assertThat(category.getProducts().size()).isEqualTo(1);
     }

@@ -30,7 +30,7 @@ public class Order extends BaseEntity {
     @JoinColumn(name = "orderer_id")
     private Member orderer;
 
-    // TODO: Eager, Lazy Test
+    // TODO: Eager, Lazy Test when write controller test
     @OneToMany(mappedBy = "order")  // mappedBy = "order"가 없으면 FK가 생기지 않고 Junction Table이 생긴다.
     private List<OrderItem> orderItems;
 
