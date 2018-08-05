@@ -29,7 +29,12 @@ public class Category extends BaseEntity {
     private List<Product> products = new ArrayList<>();
 
     public void addProduct(@NonNull Product product) {
-        this.products.add(product);
+        if (!this.products.contains(product)) {
+            this.products.add(product);
+        }
+        if (!this.equals(product.getCategory())) {
+            product.setCategory(this);
+        }
     }
 
     public Category(Long id, @NonNull String name) {

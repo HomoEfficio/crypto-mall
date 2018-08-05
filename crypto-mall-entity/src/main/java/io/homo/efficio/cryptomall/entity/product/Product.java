@@ -61,7 +61,12 @@ public class Product extends BaseEntity {
         this.category = category;
     }
 
-    public void setName(String name) {
+    public void setName(@NonNull String name) {
         this.name = name;
+    }
+
+    public void setCategory(@NonNull Category category) {
+        this.category = category;
+        category.addProduct(this);
     }
 }
