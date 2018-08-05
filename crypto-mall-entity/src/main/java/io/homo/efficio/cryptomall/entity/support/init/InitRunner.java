@@ -1,10 +1,10 @@
-package io.homo.efficio.cryptomall.entity.init;
+package io.homo.efficio.cryptomall.entity.support.init;
 
 import io.homo.efficio.cryptomall.entity.category.Category;
 import io.homo.efficio.cryptomall.entity.category.repository.CategoryRepository;
 import io.homo.efficio.cryptomall.entity.product.Product;
 import io.homo.efficio.cryptomall.entity.product.repository.ProductRepository;
-import io.homo.efficio.cryptomall.entity.util.ConsoleColor;
+import io.homo.efficio.cryptomall.entity.support.util.ConsoleColor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

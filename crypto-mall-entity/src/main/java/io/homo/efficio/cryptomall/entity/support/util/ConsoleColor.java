@@ -1,4 +1,4 @@
-package io.homo.efficio.cryptomall.entity.util;
+package io.homo.efficio.cryptomall.entity.support.util;
 
 /**
  * @author homo.efficio@gmail.com
