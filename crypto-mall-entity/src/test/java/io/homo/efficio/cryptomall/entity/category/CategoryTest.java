@@ -54,4 +54,21 @@ public class CategoryTest {
         assertThat(products.get(products.size() - 1).getCategory())
                 .isEqualTo(category);
     }
+
+    @Test
+    public void whenTheSameProductAddedTwice__thenTheLengthOfTheProductsRemainsTheSame() {
+        //given
+        Category category = new Category(1L, "스포츠");
+
+        //when
+        category.addProduct(
+                new Product(1L, "뉴발란술 운동화 Type Z", 55.0d)
+        );
+        category.addProduct(
+                new Product(1L, "뉴발란술 운동화 Type Z", 55.0d)
+        );
+
+        //then
+        assertThat(category.getProducts().size()).isEqualTo(1);
+    }
 }
