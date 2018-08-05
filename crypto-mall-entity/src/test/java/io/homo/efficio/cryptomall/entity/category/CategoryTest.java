@@ -4,6 +4,8 @@ import io.homo.efficio.cryptomall.entity.category.Category;
 import io.homo.efficio.cryptomall.entity.product.Product;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
@@ -35,5 +37,21 @@ public class CategoryTest {
         category.addProduct(null);
 
         assertThat(category.getProducts().size()).isEqualTo(0);
+    }
+
+    @Test
+    public void whenProductAdded__thenTheCategoryOfTheProductIsSetToBeThisCategory() {
+        //given
+        Category category = new Category(1L, "스포츠");
+
+        //when
+        category.addProduct(
+                new Product(1L, "뉴발란술 운동화 Type Z", 55.0d)
+        );
+
+        //then
+        final List<Product> products = category.getProducts();
+        assertThat(products.get(products.size() - 1).getCategory())
+                .isEqualTo(category);
     }
 }
