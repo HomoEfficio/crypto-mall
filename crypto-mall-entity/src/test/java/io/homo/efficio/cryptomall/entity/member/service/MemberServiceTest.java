@@ -46,7 +46,6 @@ public class MemberServiceTest {
     }
 
     @Test
-    @Transactional
     public void whenNameChanged__thenNameIsChanged() {
         // given
         Member member = new Member.Required("김삼랑", "zcxv@qwer.com", "010-2222-3333", "abcd!@#$")
@@ -59,6 +58,7 @@ public class MemberServiceTest {
 
         // when
         persistedMember.changeName("김오랑");
+        this.memberRepository.saveAndFlush(persistedMember);
 
         // then
         assertThat(this.memberRepository.findByEmail("zcxv@qwer.com").getName())
