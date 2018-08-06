@@ -109,6 +109,8 @@ public class Member extends BaseEntity {
         this.grade = required.grade;
     }
 
+    protected Member() {}
+
     public void changeName(String newName) {
         if (isChangeable()) {
             this.name = newName;

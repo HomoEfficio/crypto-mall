@@ -1,5 +1,6 @@
-package io.homo.efficio.cryptomall.entity.member;
+package io.homo.efficio.cryptomall.entity.member.repository;
 
+import io.homo.efficio.cryptomall.entity.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

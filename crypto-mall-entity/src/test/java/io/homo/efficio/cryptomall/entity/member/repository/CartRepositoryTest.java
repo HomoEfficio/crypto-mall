@@ -2,7 +2,6 @@ package io.homo.efficio.cryptomall.entity.member.repository;
 
 import io.homo.efficio.cryptomall.entity.member.Cart;
 import io.homo.efficio.cryptomall.entity.member.Member;
-import io.homo.efficio.cryptomall.entity.member.MemberRepository;
 import io.homo.efficio.cryptomall.entity.order.OrderItem;
 import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
 import io.homo.efficio.cryptomall.entity.order.repository.OrderItemRepository;
@@ -13,7 +12,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

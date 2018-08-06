@@ -1,11 +1,13 @@
 package io.homo.efficio.cryptomall.entity.member.service;
 
 import io.homo.efficio.cryptomall.entity.member.Member;
-import io.homo.efficio.cryptomall.entity.member.MemberRepository;
+import io.homo.efficio.cryptomall.entity.member.repository.MemberRepository;
+import io.homo.efficio.cryptomall.entity.member.exception.MemberNotFoundException;
 import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Created on 2018-08-06.
  */
 @RunWith(SpringRunner.class)
+@SpringBootTest
 public class MemberServiceTest {
 
     @Autowired

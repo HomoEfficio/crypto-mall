@@ -1,7 +1,6 @@
 package io.homo.efficio.cryptomall.entity.member.repository;
 
 import io.homo.efficio.cryptomall.entity.member.Member;
-import io.homo.efficio.cryptomall.entity.member.MemberRepository;
 import io.homo.efficio.cryptomall.entity.order.ShippingInfo;
 import org.junit.Before;
 import org.junit.Test;
