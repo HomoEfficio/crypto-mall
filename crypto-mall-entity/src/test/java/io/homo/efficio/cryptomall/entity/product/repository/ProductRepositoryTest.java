@@ -34,11 +34,18 @@ public class ProductRepositoryTest {
 
     @Test
     public void whenPersist__thenReturnProduct() {
-        final Product product = em.persist(
-                new Product(
-                        "어디다쓰 헬스 장갑", 15.00d
-                )
+
+        Product product = new Product(
+                "어디다쓰 헬스 장갑", 15.00d
         );
+
+        final Product persistedProduct = em.persist(product);
+        // Must invoke flush() explicitly in test method
+        // See 'Avoid false positives when testing ORM code' in
+        // https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#testcontext-tx-rollback-and-commit-behavior
+        em.flush();
+
+        assertThat(persistedProduct.getName()).isEqualTo("어디다쓰 헬스 장갑");
     }
 
     @Test
