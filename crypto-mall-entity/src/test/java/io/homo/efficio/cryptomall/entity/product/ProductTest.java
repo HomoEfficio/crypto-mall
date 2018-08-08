@@ -3,6 +3,8 @@ package io.homo.efficio.cryptomall.entity.product;
 import io.homo.efficio.cryptomall.entity.category.Category;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -17,6 +19,20 @@ public class ProductTest {
 
         assertThat(product.getName()).isEqualTo("테일러메이드 7W");
         assertThat(product.getPrice()).isEqualTo(88.0d);
+    }
+
+    @Test
+    public void whenProductWith2Category__thenProductWith2Category() {
+        Product product = new Product(1L, "IOTA", 1.1d,
+                Arrays.asList(
+                        new Category(1L, "암호화폐"),
+                        new Category(2L, "DAG")
+                )
+        );
+
+        assertThat(product.getCategories().size()).isEqualTo(2);
+        assertThat(product.getCategories(0).getName("암호화폐"));
+        assertThat(product.getCategories(1).getName("DAG"));
     }
 
     @Test
