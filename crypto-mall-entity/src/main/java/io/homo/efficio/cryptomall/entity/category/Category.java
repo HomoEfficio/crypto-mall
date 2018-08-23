@@ -24,11 +24,33 @@ public class Category extends BaseEntity {
 
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "parent_category_id")
+    private Category parent;
+
+    @OneToMany(mappedBy = "parent")
+    private Set<Category> childCategories = new HashSet<>();
+
     @ManyToMany
     @JoinTable(name = "CATEGORY_PRODUCT",
                joinColumns = @JoinColumn(name = "category_id"),
                inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products = new HashSet<>();
+
+
+    public Category(Long id, @NonNull String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Category(@NonNull String name) {
+        this.name = name;
+    }
+
+    public Category(@NonNull String name, @NonNull Category parent) {
+        this.name = name;
+        this.parent = parent;
+    }
 
     public void addProduct(@NonNull Product product) {
         if (this.products.contains(product)) {
@@ -43,13 +65,12 @@ public class Category extends BaseEntity {
         }
     }
 
-    public Category(Long id, @NonNull String name) {
-        this.id = id;
-        this.name = name;
+    public void setParent(@NonNull Category parentCategory) {
+        this.parent = parentCategory;
     }
 
-    public Category(@NonNull String name) {
-        this.name = name;
+    public void addChildCategory(@NonNull Category category) {
+        this.childCategories.add(category);
     }
 
     @Override

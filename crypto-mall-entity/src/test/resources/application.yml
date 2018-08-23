@@ -1,6 +1,12 @@
 spring.output.ansi.enabled: always
 
+spring.jpa:
+  database: MYSQL
+  properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  properties.hibernate.hbm2ddl.auto: update
+  properties.hibernate.format_sql: true
+
 logging.level.org.hibernate:
-  SQL: DEBUG  # show SQL with TimeStamp
+#  SQL: DEBUG  # show SQL with TimeStamp
   type.descriptor.sql: TRACE  # show SQL binding values
 #  type: TRACE  # show full action of JPA implementation

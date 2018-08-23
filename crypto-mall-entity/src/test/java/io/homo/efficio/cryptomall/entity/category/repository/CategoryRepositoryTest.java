@@ -70,4 +70,42 @@ public class CategoryRepositoryTest {
         assertThat(products.contains(product1)).isTrue();
         assertThat(products.contains(product2)).isTrue();
     }
+
+    @Test
+    public void findAlTest() {
+        em.persist(new Category("헬스용품"));
+        em.persist(new Category("서적"));
+        em.persist(new Category("의류"));
+
+        List<Category> all = this.repository.findAll();
+
+        assertThat(all.size()).isEqualTo(3);
+
+    }
+
+    @Test
+    public void self_reference_parent_child_test() {
+        Category 의류 = new Category("의류");
+        Category 아웃도어 = new Category("아웃도어", 의류);
+        의류.addChildCategory(아웃도어);
+        Category 아동복 = new Category("아동복", 의류);
+        의류.addChildCategory(아동복);
+        Category 등산모자 = new Category("등산모자", 아웃도어);
+        아웃도어.addChildCategory(등산모자);
+        Category 보타이 = new Category("보타이", 아동복);
+        아동복.addChildCategory(보타이);
+        Category 나비넥타이 = new Category("나비넥타이", 아동복);
+        아동복.addChildCategory(나비넥타이);
+
+        em.persist(의류);
+        em.persist(아웃도어);
+        em.persist(아동복);
+        em.persist(등산모자);
+        em.persist(보타이);
+        em.persist(나비넥타이);
+
+        List<Category> all = this.repository.findAll();
+
+        assertThat(all.size()).isEqualTo(6);
+    }
 }
