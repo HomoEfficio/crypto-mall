@@ -6,6 +6,10 @@ import lombok.Getter;
 import lombok.NonNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author homo.efficio@gmail.com
@@ -25,9 +29,8 @@ public class Product extends BaseEntity {
 
     private double price;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @ManyToMany(mappedBy = "products")
+    private Set<Category> categories = new HashSet<>();
 
     public Product(Long id,
                    @NonNull String name,
@@ -46,27 +49,35 @@ public class Product extends BaseEntity {
     public Product(Long id,
                    @NonNull String name,
                    double price,
-                   @NonNull Category category) {
+                   @NonNull Set<Category> categories) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.category = category;
+        this.categories = categories;
     }
 
     public Product(@NonNull String name,
                    double price,
-                   @NonNull Category category) {
+                   @NonNull Set<Category> categories) {
         this.name = name;
         this.price = price;
-        this.category = category;
+        this.categories = categories;
     }
 
-    public void setName(@NonNull String name) {
+    public void changeName(@NonNull String name) {
         this.name = name;
     }
 
-    public void setCategory(@NonNull Category category) {
-        this.category = category;
+    public void setCategories(@NonNull Set<Category> categories) {
+        if (this.categories.isEmpty()) {
+            this.categories.addAll(categories);
+        } else {
+            this.categories = categories;
+        }
+    }
+
+    public void addCategory(@NonNull Category category) {
+        this.categories.add(category);
     }
 
     @Override

@@ -6,8 +6,7 @@ import lombok.Getter;
 import lombok.NonNull;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author homo.efficio@gmail.com
@@ -25,8 +24,11 @@ public class Category extends BaseEntity {
 
     private String name;
 
-    @OneToMany(mappedBy = "category")
-    private List<Product> products = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "CATEGORY_PRODUCT",
+               joinColumns = @JoinColumn(name = "category_id"),
+               inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private Set<Product> products = new HashSet<>();
 
     public void addProduct(@NonNull Product product) {
         if (this.products.contains(product)) {
@@ -34,8 +36,10 @@ public class Category extends BaseEntity {
         } else {
             this.products.add(product);
         }
-        if (!this.equals(product.getCategory())) {
-            product.setCategory(this);
+        if (!Objects.requireNonNull(
+                product.getCategories(), "Product에 Categories가 null 입니다.")
+                .contains(this)) {
+            product.addCategory(this);
         }
     }
 
@@ -46,5 +50,25 @@ public class Category extends BaseEntity {
 
     public Category(@NonNull String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Category category = (Category) o;
+
+        if (id != null ? !id.equals(category.id) : category.id != null) return false;
+        if (!name.equals(category.name)) return false;
+        return products != null ? products.equals(category.products) : category.products == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + (products != null ? products.hashCode() : 0);
+        return result;
     }
 }

@@ -9,6 +9,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,7 +58,7 @@ public class ProductRepositoryTest {
                         "어디다쓰 헬스 장갑", 15.00d
                 )
         );
-        product.setName("나이스 헬스 장갑");
+        product.changeName("나이스 헬스 장갑");
 
         // Must invoke flush() explicitly in test method
         // See 'Avoid false positives when testing ORM code' in
@@ -76,7 +78,7 @@ public class ProductRepositoryTest {
         em.persist(
                 new Product(
                         "라텍스 밴드 중급형", 28.00d,
-                        category
+                        new HashSet<Category>(Arrays.asList(category))
                 )
         );
 //        em.flush();  // No need to explicitly invoke flush, because it will be invoked by find***() below
@@ -84,34 +86,34 @@ public class ProductRepositoryTest {
         Product product = repository.findByName("라텍스 밴드 중급형");
 
         assertThat(product.getName()).isEqualTo("라텍스 밴드 중급형");
-        assertThat(product.getCategory().getName()).isEqualTo("헬스용품");
+        assertThat(((Category[]) product.getCategories().toArray())[0].getName()).isEqualTo("헬스용품");
     }
 
-    @Test
-    public void whenFindByCategory__thenReturnProductByCategory() {
-        Category category = em.persist(
-                new Category(
-                        "헬스용품"
-                )
-        );
-        em.persist(
-                new Product(
-                        "라텍스 밴드 중급형", 28.00d,
-                        category
-                )
-        );
-        em.persist(
-                new Product(
-                        "어디다쓰 헬스 장갑", 15.00d,
-                        category
-                )
-        );
-//        em.flush();  // No need to explicitly invoke flush, because it will be invoked by find***() below
-
-        List<Product> productsByCategory = repository.findByCategory(category);
-
-        assertThat(productsByCategory.size()).isEqualTo(2);
-        assertThat(productsByCategory.get(0).getPrice()).isEqualTo(28.00d);
-        assertThat(productsByCategory.get(1).getName()).isEqualTo("어디다쓰 헬스 장갑");
-    }
+    // 카테고리와 상품이 다대다 이므로 아래와 같이 카테고리에 속한 상품을 조회하는 기능은 카테고리에서 구현
+//    @Test
+//    public void whenFindByCategory__thenReturnProductByCategory() {
+//        Category category = em.persist(
+//                new Category(
+//                        "헬스용품"
+//                )
+//        );
+//        category.addProduct(
+//                new Product(
+//                        "라텍스 밴드 중급형", 28.00d
+//                )
+//        );
+//        category.addProduct(
+//                new Product(
+//                        "어디다쓰 헬스 장갑", 15.00d
+//                )
+//        );
+//
+////        em.flush();  // No need to explicitly invoke flush, because it will be invoked by find***() below
+//
+//        List<Product> productsByCategory = repository.findByCategory(category);
+//
+//        assertThat(productsByCategory.size()).isEqualTo(2);
+//        assertThat(productsByCategory.get(0).getPrice()).isEqualTo(28.00d);
+//        assertThat(productsByCategory.get(1).getName()).isEqualTo("어디다쓰 헬스 장갑");
+//    }
 }

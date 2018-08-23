@@ -33,7 +33,7 @@ public class InitRunner implements CommandLineRunner {
                 )
         );
 
-        product.setName("나이스 헬스 장갑");
+        product.changeName("나이스 헬스 장갑");
 
         productRepository.flush();
 

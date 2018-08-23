@@ -4,6 +4,9 @@ import io.homo.efficio.cryptomall.entity.category.Category;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,24 +26,30 @@ public class ProductTest {
 
     @Test
     public void whenProductWith2Category__thenProductWith2Category() {
-        Product product = new Product(1L, "IOTA", 1.1d,
+        Category category1 = new Category(1L, "암호화폐");
+        Category category2 = new Category(2L, "DAG");
+        Set<Category> categories = new HashSet<>();
+        categories.addAll(
                 Arrays.asList(
-                        new Category(1L, "암호화폐"),
-                        new Category(2L, "DAG")
+                        category1,
+                        category2
                 )
         );
+        Product product = new Product(1L, "IOTA", 1.1d, categories);
 
         assertThat(product.getCategories().size()).isEqualTo(2);
-        assertThat(product.getCategories(0).getName("암호화폐"));
-        assertThat(product.getCategories(1).getName("DAG"));
+        assertThat(product.getCategories()).contains(category1);
+        assertThat(product.getCategories()).contains(category2);
     }
 
     @Test
     public void 카테고리_있는_상품생성() {
         Product product = new Product(1L, "IOTA", 1.1d,
-                new Category(1L, "암호화폐"));
+                new HashSet<>(Arrays.asList(new Category(1L, "암호화폐")))
+        );
 
         assertThat(product.getName()).isEqualTo("IOTA");
+        assertThat((product.getCategories().toArray(new Category[1]))[0].getName()).isEqualTo("암호화폐");
     }
 
     @Test(expected = NullPointerException.class)
